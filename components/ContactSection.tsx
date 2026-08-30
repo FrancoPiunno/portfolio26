@@ -17,60 +17,8 @@ export function ContactSection() {
       id="contacto"
       className="relative min-h-[100dvh] w-full bg-transparent text-[#FFFFFF] flex flex-col justify-center py-16 sm:py-20 lg:py-24 px-6 sm:px-10 lg:px-16 overflow-hidden"
     >
-      {/* ─── ANIMATED BACKGROUND LAYER ─── */}
+      {/* ─── ANIMATED SMOOTH FLOW LINES (FONDO NEGRO CON LÍNEAS LISAS, DEGRADADO Y RESPLANDOR) ─── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 select-none">
-        
-        {/* 1. Primary Warm Glow Orb (Top Right / Center) */}
-        <motion.div
-          animate={{
-            x: [0, 45, -35, 0],
-            y: [0, -35, 25, 0],
-            scale: [1, 1.22, 0.96, 1],
-            opacity: [0.22, 0.38, 0.24, 0.22],
-          }}
-          transition={{
-            duration: 16,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute -top-[15%] -right-[10%] w-[550px] sm:w-[750px] lg:w-[950px] h-[550px] sm:h-[750px] lg:h-[950px] rounded-full bg-gradient-to-br from-[#FA8A61]/35 via-[#F87747]/20 to-transparent blur-[100px] sm:blur-[140px] lg:blur-[170px]"
-        />
-
-        {/* 2. Secondary Amber / Ember Orb (Bottom Left) */}
-        <motion.div
-          animate={{
-            x: [0, -50, 30, 0],
-            y: [0, 40, -30, 0],
-            scale: [0.95, 1.18, 1.02, 0.95],
-            opacity: [0.15, 0.32, 0.18, 0.15],
-          }}
-          transition={{
-            duration: 19,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1.5,
-          }}
-          className="absolute -bottom-[20%] -left-[15%] w-[500px] sm:w-[700px] lg:w-[850px] h-[500px] sm:h-[700px] lg:h-[850px] rounded-full bg-gradient-to-tr from-[#FF5520]/28 via-[#FA8A61]/15 to-transparent blur-[110px] sm:blur-[150px] lg:blur-[180px]"
-        />
-
-        {/* 3. Subtle Violet Depth Accent Orb (Center Depth) */}
-        <motion.div
-          animate={{
-            x: [0, 30, -20, 0],
-            y: [0, 25, -35, 0],
-            scale: [1, 1.15, 0.9, 1],
-            opacity: [0.08, 0.18, 0.1, 0.08],
-          }}
-          transition={{
-            duration: 22,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 3,
-          }}
-          className="absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-gradient-to-r from-purple-600/20 via-pink-500/10 to-transparent blur-[120px] sm:blur-[160px]"
-        />
-
-        {/* 4. Elegant Animated Flow Lines (Ondas fluidas en movimiento continuo) */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none"
           viewBox="0 0 1440 900"
@@ -78,45 +26,52 @@ export function ContactSection() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
+            {/* Gradiente de flujo 1 (Coral a Ámbar luminoso) */}
             <linearGradient id="flowGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#FA8A61" stopOpacity="0" />
-              <stop offset="25%" stopColor="#FA8A61" stopOpacity="0.45" />
-              <stop offset="55%" stopColor="#FFA47D" stopOpacity="0.75" />
-              <stop offset="80%" stopColor="#FA8A61" stopOpacity="0.4" />
+              <stop offset="20%" stopColor="#FA8A61" stopOpacity="0.3" />
+              <stop offset="50%" stopColor="#FF9F7A" stopOpacity="0.85" />
+              <stop offset="75%" stopColor="#FA8A61" stopOpacity="0.4" />
               <stop offset="100%" stopColor="#FA8A61" stopOpacity="0" />
             </linearGradient>
 
-            <linearGradient id="flowGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+            {/* Gradiente de flujo 2 (Brillo blanco cálido y coral) */}
+            <linearGradient id="flowGrad2" x1="0%" y1="50%" x2="100%" y2="50%">
               <stop offset="0%" stopColor="#FF5520" stopOpacity="0" />
-              <stop offset="35%" stopColor="#FA8A61" stopOpacity="0.35" />
-              <stop offset="65%" stopColor="#FFFFFF" stopOpacity="0.5" />
-              <stop offset="90%" stopColor="#FF5520" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="#FA8A61" stopOpacity="0" />
+              <stop offset="30%" stopColor="#FA8A61" stopOpacity="0.4" />
+              <stop offset="60%" stopColor="#FFFFFF" stopOpacity="0.9" />
+              <stop offset="85%" stopColor="#FA8A61" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#FF5520" stopOpacity="0" />
             </linearGradient>
 
+            {/* Gradiente de flujo 3 (Onda profunda) */}
             <linearGradient id="flowGrad3" x1="100%" y1="100%" x2="0%" y2="0%">
               <stop offset="0%" stopColor="#FA8A61" stopOpacity="0" />
-              <stop offset="30%" stopColor="#FF7744" stopOpacity="0.25" />
-              <stop offset="70%" stopColor="#FA8A61" stopOpacity="0.4" />
+              <stop offset="25%" stopColor="#F87747" stopOpacity="0.25" />
+              <stop offset="55%" stopColor="#FFB394" stopOpacity="0.7" />
+              <stop offset="85%" stopColor="#FA8A61" stopOpacity="0.3" />
               <stop offset="100%" stopColor="#FA8A61" stopOpacity="0" />
             </linearGradient>
 
-            <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="4" result="blur" />
+            {/* Filtro de Resplandor Liso (Glow) */}
+            <filter id="flowGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="5" result="blur1" />
+              <feGaussianBlur stdDeviation="2" result="blur2" />
               <feMerge>
-                <feMergeNode in="blur" />
+                <feMergeNode in="blur1" />
+                <feMergeNode in="blur2" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
           </defs>
 
-          {/* Flow Wave Line 1 (Línea principal fluida superior) */}
+          {/* Línea 1 Lisa con Resplandor (Onda superior fluida) */}
           <motion.path
             d="M -100 320 C 300 180, 650 480, 1100 260 S 1550 420, 1650 350"
             fill="none"
             stroke="url(#flowGrad1)"
-            strokeWidth="2.2"
-            filter="url(#glowFilter)"
+            strokeWidth="2"
+            filter="url(#flowGlow)"
             animate={{
               d: [
                 "M -100 320 C 300 180, 650 480, 1100 260 S 1550 420, 1650 350",
@@ -124,21 +79,22 @@ export function ContactSection() {
                 "M -100 380 C 260 220, 600 450, 1080 200 S 1580 380, 1650 340",
                 "M -100 320 C 300 180, 650 480, 1100 260 S 1550 420, 1650 350",
               ],
+              opacity: [0.65, 0.95, 0.7, 0.65],
             }}
             transition={{
-              duration: 18,
+              duration: 16,
               repeat: Infinity,
               ease: "easeInOut",
             }}
           />
 
-          {/* Flow Wave Line 2 (Línea complementaria en contrafase) */}
+          {/* Línea 2 Lisa con Resplandor (Onda central brillante) */}
           <motion.path
             d="M -100 450 C 350 580, 750 280, 1150 500 S 1500 320, 1650 440"
             fill="none"
             stroke="url(#flowGrad2)"
-            strokeWidth="1.8"
-            filter="url(#glowFilter)"
+            strokeWidth="2.2"
+            filter="url(#flowGlow)"
             animate={{
               d: [
                 "M -100 450 C 350 580, 750 280, 1150 500 S 1500 320, 1650 440",
@@ -146,43 +102,47 @@ export function ContactSection() {
                 "M -100 390 C 380 520, 800 240, 1200 480 S 1480 290, 1650 460",
                 "M -100 450 C 350 580, 750 280, 1150 500 S 1500 320, 1650 440",
               ],
+              opacity: [0.7, 1, 0.75, 0.7],
             }}
             transition={{
-              duration: 22,
+              duration: 20,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 1,
+              delay: 0.8,
             }}
           />
 
-          {/* Flow Wave Line 3 (Línea de corriente con estela punteada continua) */}
+          {/* Línea 3 Lisa con Resplandor (Onda armónica intermedia) */}
           <motion.path
             d="M -100 390 C 320 280, 700 420, 1120 310 S 1520 400, 1650 360"
             fill="none"
             stroke="url(#flowGrad1)"
-            strokeWidth="1.4"
-            strokeDasharray="10 14"
+            strokeWidth="1.6"
+            filter="url(#flowGlow)"
             animate={{
-              strokeDashoffset: [0, -180],
               d: [
                 "M -100 390 C 320 280, 700 420, 1120 310 S 1520 400, 1650 360",
                 "M -100 340 C 360 440, 750 260, 1180 430 S 1490 280, 1650 330",
                 "M -100 420 C 280 310, 660 460, 1090 270 S 1550 430, 1650 380",
                 "M -100 390 C 320 280, 700 420, 1120 310 S 1520 400, 1650 360",
               ],
+              opacity: [0.5, 0.85, 0.6, 0.5],
             }}
             transition={{
-              strokeDashoffset: { duration: 12, repeat: Infinity, ease: "linear" },
-              d: { duration: 20, repeat: Infinity, ease: "easeInOut" },
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1.6,
             }}
           />
 
-          {/* Flow Wave Line 4 (Línea profunda inferior de cadencia lenta) */}
+          {/* Línea 4 Lisa con Resplandor (Onda inferior profunda) */}
           <motion.path
             d="M -100 620 C 380 480, 820 690, 1220 520 S 1540 640, 1650 580"
             fill="none"
             stroke="url(#flowGrad3)"
-            strokeWidth="1.5"
+            strokeWidth="1.8"
+            filter="url(#flowGlow)"
             animate={{
               d: [
                 "M -100 620 C 380 480, 820 690, 1220 520 S 1540 640, 1650 580",
@@ -190,75 +150,40 @@ export function ContactSection() {
                 "M -100 660 C 320 520, 860 670, 1250 480 S 1580 660, 1650 550",
                 "M -100 620 C 380 480, 820 690, 1220 520 S 1540 640, 1650 580",
               ],
+              opacity: [0.45, 0.8, 0.5, 0.45],
             }}
             transition={{
-              duration: 25,
+              duration: 22,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 2,
+              delay: 2.2,
             }}
           />
 
-          {/* Flow Wave Line 5 (Línea de corriente fina con pulsación) */}
+          {/* Línea 5 Lisa con Resplandor (Onda alta sutil) */}
           <motion.path
             d="M -100 220 C 420 350, 800 150, 1200 340 S 1510 190, 1650 250"
             fill="none"
             stroke="url(#flowGrad2)"
-            strokeWidth="1.2"
-            strokeDasharray="6 10"
+            strokeWidth="1.4"
+            filter="url(#flowGlow)"
             animate={{
-              strokeDashoffset: [0, 140],
               d: [
                 "M -100 220 C 420 350, 800 150, 1200 340 S 1510 190, 1650 250",
                 "M -100 290 C 360 180, 740 370, 1140 220 S 1560 320, 1650 210",
                 "M -100 180 C 460 320, 840 180, 1230 360 S 1480 220, 1650 270",
                 "M -100 220 C 420 350, 800 150, 1200 340 S 1510 190, 1650 250",
               ],
+              opacity: [0.4, 0.75, 0.5, 0.4],
             }}
             transition={{
-              strokeDashoffset: { duration: 14, repeat: Infinity, ease: "linear" },
-              d: { duration: 24, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
+              duration: 24,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1.2,
             }}
           />
         </svg>
-
-        {/* 5. Nodos / Partículas flotantes ambientales sutiles */}
-        {mounted && (
-          <div className="absolute inset-0">
-            {[
-              { top: "25%", left: "18%", delay: 0, duration: 8, size: 3 },
-              { top: "65%", left: "12%", delay: 2.5, duration: 9.5, size: 2.5 },
-              { top: "30%", left: "75%", delay: 1.2, duration: 7.5, size: 3.5 },
-              { top: "80%", left: "68%", delay: 3.8, duration: 10, size: 2 },
-              { top: "15%", left: "85%", delay: 2.1, duration: 8.8, size: 3 },
-              { top: "50%", left: "92%", delay: 3.2, duration: 9.2, size: 2.5 },
-              { top: "72%", left: "42%", delay: 1.7, duration: 8.2, size: 2.5 },
-            ].map((pt, idx) => (
-              <motion.div
-                key={`contact-pt-${idx}`}
-                style={{
-                  top: pt.top,
-                  left: pt.left,
-                  width: `${pt.size}px`,
-                  height: `${pt.size}px`,
-                }}
-                className="absolute rounded-full bg-[#FA8A61]/50"
-                animate={{
-                  y: [0, -20, 0],
-                  x: [0, 10, 0],
-                  opacity: [0.15, 0.7, 0.15],
-                  scale: [0.8, 1.35, 0.8],
-                }}
-                transition={{
-                  duration: pt.duration,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: pt.delay,
-                }}
-              />
-            ))}
-          </div>
-        )}
       </div>
 
       {/* ─── FOREGROUND CONTENT ─── */}
