@@ -1,13 +1,23 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { openContactModal } from "./ContactModal";
 
 export function Hero() {
   const [mounted, setMounted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Parallax suave al scrollear la página
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const parallaxRaw = useTransform(scrollYProgress, [0, 1], [0, 110]);
+  const parallaxY = useSpring(parallaxRaw, { stiffness: 90, damping: 28, restDelta: 0.001 });
 
   // Subtle mouse parallax for ambient lights
   const mouseX = useMotionValue(0);
@@ -59,7 +69,11 @@ export function Hero() {
   };
 
   return (
-    <section id="hero" className="relative min-h-[100dvh] w-full bg-transparent text-[#101010] flex flex-col justify-between pt-16 sm:pt-20 lg:pt-20 xl:pt-24 pb-3 sm:pb-6 lg:pb-14 xl:pb-20 px-6 sm:px-10 lg:px-16 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="hero"
+      className="relative min-h-[100dvh] h-[100dvh] w-full bg-transparent text-[#101010] flex flex-col justify-between pt-7 sm:pt-12 lg:pt-20 xl:pt-24 pb-3 sm:pb-5 lg:pb-14 xl:pb-20 px-5 sm:px-10 lg:px-16 overflow-hidden"
+    >
       {/* ─── FONDO ANIMADO SÚPER SUTIL ─── */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
         {/* 1. Malla de Puntos Arquitectónica con Difuminado Radial Suave */}
@@ -212,26 +226,31 @@ export function Hero() {
             </div>
           </div>
 
-          {/* 2. Hero Portrait Image (Mobile Order 2 - 100% Opacidad y z-index detrás | Desktop Col 8-12 Rows 1-2) */}
+          {/* 2. Hero Portrait Image (Mobile Order 2 - Parallax al Scroll | Desktop Col 8-12 Rows 1-2) */}
           <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative flex-1 flex items-center lg:items-end justify-center lg:justify-end self-center lg:self-end h-full w-full my-auto min-h-0 pointer-events-none z-0 lg:z-10">
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 1.2,
-                delay: 1.35,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-              className="relative w-[130vw] sm:w-[95vw] lg:w-[38vw] xl:w-[40vw] 2xl:w-[42vw] h-[65vh] sm:h-[72vh] lg:h-[82vh] xl:h-[86vh] 2xl:h-[90vh] scale-[1.40] sm:scale-[1.30] origin-center lg:origin-bottom-right lg:scale-[1.25] xl:scale-[1.28] 2xl:scale-[1.32] pointer-events-none -my-12 sm:-my-8 lg:my-0 lg:-mb-14 xl:-mb-20"
+              style={{ y: parallaxY }}
+              className="relative w-full h-full flex items-center lg:items-end justify-center lg:justify-end"
             >
-              <Image
-                src="/images/my.png"
-                alt="Franco Piunno - Arquitecto Digital"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 55vw"
-                className="object-contain object-center lg:object-bottom select-none mix-blend-luminosity opacity-100"
-              />
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1.2,
+                  delay: 1.35,
+                  ease: [0.25, 0.1, 0.25, 1],
+                }}
+                className="relative w-[130vw] sm:w-[95vw] lg:w-[38vw] xl:w-[40vw] 2xl:w-[42vw] h-[65vh] sm:h-[72vh] lg:h-[82vh] xl:h-[86vh] 2xl:h-[90vh] scale-[1.40] sm:scale-[1.30] origin-center lg:origin-bottom-right lg:scale-[1.25] xl:scale-[1.28] 2xl:scale-[1.32] pointer-events-none -my-12 sm:-my-8 lg:my-0 lg:-mb-14 xl:-mb-20"
+              >
+                <Image
+                  src="/images/my.png"
+                  alt="Franco Piunno - Arquitecto Digital"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  className="object-contain object-center lg:object-bottom select-none mix-blend-luminosity opacity-100"
+                />
+              </motion.div>
             </motion.div>
           </div>
 
