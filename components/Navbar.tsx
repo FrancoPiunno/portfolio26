@@ -260,137 +260,147 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
         </div>
       </header>
 
-      {/* ─── MOBILE BOTTOM BAR (< md) ─── */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex items-center gap-2.5 sm:gap-3 pointer-events-auto select-none">
-        <AnimatePresence mode="wait">
-          {!isMobileContactOpen ? (
-            /* Estado 1: Navbar Regular */
-            <motion.div
-              key="mobile-nav-bar"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center gap-2.5 sm:gap-3"
-            >
-              {/* Navbar idéntico exactamente al de desktop con whitespace-nowrap */}
-              <nav
-                className={`flex items-center flex-nowrap p-0 rounded-full overflow-hidden backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shrink-0 ${
-                  isDarkBg
-                    ? "bg-white/[0.08] border border-white/[0.10]"
-                    : "bg-black/[0.04] border border-black/[0.06]"
-                }`}
-              >
-                {navItems.map((item) => {
-                  const isActive = currentTab === item.name;
-                  return (
+      {/* ─── MOBILE BOTTOM BAR (< md) - Oculto en Hero, aparece en Trabajo ─── */}
+      <AnimatePresence>
+        {isScrolledPastHero && (
+          <motion.div
+            initial={{ opacity: 0, y: 28, scale: 0.92 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 28, scale: 0.92 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex items-center gap-2.5 sm:gap-3 pointer-events-auto select-none"
+          >
+            <AnimatePresence mode="wait">
+              {!isMobileContactOpen ? (
+                /* Estado 1: Navbar Regular */
+                <motion.div
+                  key="mobile-nav-bar"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center gap-2.5 sm:gap-3"
+                >
+                  {/* Navbar idéntico exactamente al de desktop con whitespace-nowrap */}
+                  <nav
+                    className={`flex items-center flex-nowrap p-0 rounded-full overflow-hidden backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shrink-0 ${
+                      isDarkBg
+                        ? "bg-white/[0.08] border border-white/[0.10]"
+                        : "bg-black/[0.04] border border-black/[0.06]"
+                    }`}
+                  >
+                    {navItems.map((item) => {
+                      const isActive = currentTab === item.name;
+                      return (
+                        <a
+                          key={`mobile-nav-${item.name}`}
+                          href={item.href}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            scrollToHref(item.href, item.name);
+                          }}
+                          className={`relative px-3.5 sm:px-5 py-2.5 rounded-full text-[13.5px] sm:text-[15px] whitespace-nowrap shrink-0 transition-colors duration-200 select-none z-10 cursor-pointer ${
+                            isActive
+                              ? isDarkBg
+                                ? "text-white font-semibold"
+                                : "text-[#101010] font-semibold"
+                              : isDarkBg
+                              ? "text-white/60 hover:text-white font-normal"
+                              : "text-[#101010]/60 hover:text-[#101010] font-normal"
+                          }`}
+                        >
+                          {isActive && (
+                            <motion.div
+                              layoutId="active-mobile-navbar-pill"
+                              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                              className={`absolute inset-0 rounded-full -z-10 ${
+                                isDarkBg ? "bg-white/[0.16]" : "bg-white"
+                              }`}
+                            />
+                          )}
+                          <span className="whitespace-nowrap">{item.name}</span>
+                        </a>
+                      );
+                    })}
+                  </nav>
+
+                  {/* Botón Circular 'Trabajemos juntos' AFUERA del navbar */}
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileContactOpen(true)}
+                    className="w-11 h-11 rounded-full bg-[#FA8A61] hover:bg-[#F87747] active:scale-90 text-[#101010] flex items-center justify-center transition-all shadow-[0_4px_18px_rgba(250,138,97,0.38)] cursor-pointer shrink-0 select-none"
+                    aria-label="Trabajemos juntos"
+                  >
+                    <ArrowUpRight className="w-5 h-5 stroke-[2.4]" />
+                  </button>
+                </motion.div>
+              ) : (
+                /* Estado 2: Navbar transformado en Dialog de Contacto Transparente (Vertical y Más Grande) */
+                <motion.div
+                  key="mobile-contact-bar"
+                  initial={{ opacity: 0, scale: 0.95, y: 8 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 8 }}
+                  transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex items-end gap-2.5 w-[calc(100vw-2.5rem)] max-w-[340px]"
+                >
+                  {/* Contenedor transparente vertical con el mismo estilo del navbar */}
+                  <div
+                    className={`flex-1 flex flex-col gap-2 p-2 rounded-2xl backdrop-blur-xl transition-all duration-500 shadow-2xl ${
+                      isDarkBg
+                        ? "bg-[#181818]/90 border border-white/15 text-white"
+                        : "bg-white/90 border border-black/10 text-[#101010]"
+                    }`}
+                  >
+                    {/* Opción WhatsApp (Vertical Arriba - Sin fondo, solo texto e icono) */}
                     <a
-                      key={`mobile-nav-${item.name}`}
-                      href={item.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        scrollToHref(item.href, item.name);
-                      }}
-                      className={`relative px-3.5 sm:px-5 py-2.5 rounded-full text-[13.5px] sm:text-[15px] whitespace-nowrap shrink-0 transition-colors duration-200 select-none z-10 cursor-pointer ${
-                        isActive
-                          ? isDarkBg
-                            ? "text-white font-semibold"
-                            : "text-[#101010] font-semibold"
-                          : isDarkBg
-                          ? "text-white/60 hover:text-white font-normal"
-                          : "text-[#101010]/60 hover:text-[#101010] font-normal"
+                      href="https://wa.me/5491127964772?text=Hola%20Franco,%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsMobileContactOpen(false)}
+                      className="flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-[17px] sm:text-[18px] font-bold text-[#25D366] hover:opacity-80 active:scale-[0.98] transition-all select-none cursor-pointer"
+                    >
+                      <div className="flex items-center gap-3">
+                        <WhatsAppIcon className="w-5 h-5 sm:w-5.5 sm:h-5.5 fill-current" />
+                        <span>WhatsApp</span>
+                      </div>
+                      <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.4] opacity-80" />
+                    </a>
+
+                    {/* Opción Email (Vertical Abajo - Sin fondo, solo texto e icono) */}
+                    <a
+                      href="mailto:piunnofranco@gmail.com?subject=Proyecto%20-%20Trabajemos%20juntos"
+                      onClick={() => setIsMobileContactOpen(false)}
+                      className={`flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-[17px] sm:text-[18px] font-bold active:scale-[0.98] transition-all select-none cursor-pointer ${
+                        isDarkBg
+                          ? "text-white hover:text-white/80"
+                          : "text-[#101010] hover:text-[#101010]/80"
                       }`}
                     >
-                      {isActive && (
-                        <motion.div
-                          layoutId="active-mobile-navbar-pill"
-                          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                          className={`absolute inset-0 rounded-full -z-10 ${
-                            isDarkBg ? "bg-white/[0.16]" : "bg-white"
-                          }`}
-                        />
-                      )}
-                      <span className="whitespace-nowrap">{item.name}</span>
+                      <div className="flex items-center gap-3">
+                        <Mail className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[2]" />
+                        <span>Email</span>
+                      </div>
+                      <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.4] opacity-80" />
                     </a>
-                  );
-                })}
-              </nav>
-
-              {/* Botón Circular 'Trabajemos juntos' AFUERA del navbar */}
-              <button
-                type="button"
-                onClick={() => setIsMobileContactOpen(true)}
-                className="w-11 h-11 rounded-full bg-[#FA8A61] hover:bg-[#F87747] active:scale-90 text-[#101010] flex items-center justify-center transition-all shadow-[0_4px_18px_rgba(250,138,97,0.38)] cursor-pointer shrink-0 select-none"
-                aria-label="Trabajemos juntos"
-              >
-                <ArrowUpRight className="w-5 h-5 stroke-[2.4]" />
-              </button>
-            </motion.div>
-          ) : (
-            /* Estado 2: Navbar transformado en Dialog de Contacto Transparente (Vertical y Más Grande) */
-            <motion.div
-              key="mobile-contact-bar"
-              initial={{ opacity: 0, scale: 0.95, y: 8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 8 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-end gap-2.5 w-[calc(100vw-2.5rem)] max-w-[340px]"
-            >
-              {/* Contenedor transparente vertical con el mismo estilo del navbar */}
-              <div
-                className={`flex-1 flex flex-col gap-2 p-2 rounded-2xl backdrop-blur-xl transition-all duration-500 shadow-2xl ${
-                  isDarkBg
-                    ? "bg-[#181818]/90 border border-white/15 text-white"
-                    : "bg-white/90 border border-black/10 text-[#101010]"
-                }`}
-              >
-                {/* Opción WhatsApp (Vertical Arriba - Sin fondo, solo texto e icono) */}
-                <a
-                  href="https://wa.me/5491127964772?text=Hola%20Franco,%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMobileContactOpen(false)}
-                  className="flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-[17px] sm:text-[18px] font-bold text-[#25D366] hover:opacity-80 active:scale-[0.98] transition-all select-none cursor-pointer"
-                >
-                  <div className="flex items-center gap-3">
-                    <WhatsAppIcon className="w-5 h-5 sm:w-5.5 sm:h-5.5 fill-current" />
-                    <span>WhatsApp</span>
                   </div>
-                  <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.4] opacity-80" />
-                </a>
 
-                {/* Opción Email (Vertical Abajo - Sin fondo, solo texto e icono) */}
-                <a
-                  href="mailto:piunnofranco@gmail.com?subject=Proyecto%20-%20Trabajemos%20juntos"
-                  onClick={() => setIsMobileContactOpen(false)}
-                  className={`flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-[17px] sm:text-[18px] font-bold active:scale-[0.98] transition-all select-none cursor-pointer ${
-                    isDarkBg
-                      ? "text-white hover:text-white/80"
-                      : "text-[#101010] hover:text-[#101010]/80"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[2]" />
-                    <span>Email</span>
-                  </div>
-                  <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.4] opacity-80" />
-                </a>
-              </div>
-
-              {/* Botón Circular para Cerrar / Volver */}
-              <button
-                type="button"
-                onClick={() => setIsMobileContactOpen(false)}
-                className="w-11 h-11 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0 select-none active:scale-90 bg-[#FA8A61] hover:bg-[#F87747] text-[#101010] shadow-[0_4px_18px_rgba(250,138,97,0.38)] mb-0.5"
-                aria-label="Cerrar opciones de contacto"
-                title="Volver"
-              >
-                <X className="w-5 h-5 stroke-[2.4]" />
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+                  {/* Botón Circular para Cerrar / Volver */}
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileContactOpen(false)}
+                    className="w-11 h-11 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0 select-none active:scale-90 bg-[#FA8A61] hover:bg-[#F87747] text-[#101010] shadow-[0_4px_18px_rgba(250,138,97,0.38)] mb-0.5"
+                    aria-label="Cerrar opciones de contacto"
+                    title="Volver"
+                  >
+                    <X className="w-5 h-5 stroke-[2.4]" />
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
