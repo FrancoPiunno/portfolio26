@@ -610,7 +610,10 @@ export function ClientsSection() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-black/85 backdrop-blur-md"
+                data-lenis-prevent="true"
+                className={`fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-md ${
+                  isMobileListOpen ? "p-0" : "p-4 sm:p-6 lg:p-10"
+                }`}
                 onClick={handleCloseModal}
               >
                 <motion.div
@@ -623,7 +626,7 @@ export function ClientsSection() {
                     activeExpandedImage && expandedIndex !== null
                       ? "w-fit max-w-[92vw] max-h-[90vh] bg-transparent flex items-center justify-center"
                       : isMobileListOpen
-                      ? "w-full max-w-2xl h-[92vh] max-h-[92vh] bg-transparent text-white flex flex-col"
+                      ? "w-full h-[100dvh] max-h-[100dvh] bg-transparent text-white flex flex-col"
                       : "w-full max-w-6xl max-h-[90vh] min-h-[420px] sm:min-h-[520px] lg:min-h-[580px] bg-[#121212] text-white flex flex-col"
                   }`}
                 >
@@ -636,10 +639,14 @@ export function ClientsSection() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="relative flex flex-col w-full h-full max-h-[92vh] bg-transparent overflow-hidden select-none"
+                        className="relative flex flex-col w-full h-full bg-transparent overflow-hidden"
                       >
                         {/* Lista scrolleable únicamente con las imágenes */}
-                        <div className="flex-1 overflow-y-auto w-full h-full p-2 sm:p-4 space-y-4 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-28">
+                        <div
+                          data-lenis-prevent="true"
+                          className="flex-1 overflow-y-auto overscroll-contain touch-pan-y w-full h-full p-2 sm:p-4 space-y-4 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pt-6 pb-32"
+                          style={{ WebkitOverflowScrolling: "touch" }}
+                        >
                           {modalClient.galleryImages.map((gImg, gIdx) => (
                             <div
                               key={`mobile-list-img-${gIdx}`}
@@ -649,7 +656,7 @@ export function ClientsSection() {
                               <img
                                 src={gImg.src}
                                 alt={gImg.alt || `${modalClient.name} - ${gIdx + 1}`}
-                                className="w-full h-auto object-contain block select-none rounded-none"
+                                className="w-full h-auto object-contain block rounded-none pointer-events-none"
                                 loading={gIdx < 3 ? "eager" : "lazy"}
                               />
                             </div>
@@ -661,7 +668,7 @@ export function ClientsSection() {
                           <button
                             type="button"
                             onClick={() => setIsMobileListOpen(false)}
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black/80 hover:bg-black text-white text-[15px] font-medium transition-all backdrop-blur-md cursor-pointer border border-white/20 shadow-2xl hover:scale-105 active:scale-95 select-none"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black/85 hover:bg-black text-white text-[15px] font-medium transition-all backdrop-blur-md cursor-pointer border border-white/25 shadow-2xl hover:scale-105 active:scale-95 select-none"
                           >
                             <ArrowLeft className="w-4 h-4" />
                             <span>Volver</span>
