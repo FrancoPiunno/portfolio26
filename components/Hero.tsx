@@ -10,14 +10,13 @@ export function Hero() {
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Parallax suave al scrollear la página
+  // Desvanecer opacidad al hacer scroll hacia abajo
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
 
-  const parallaxRaw = useTransform(scrollYProgress, [0, 1], [0, 110]);
-  const parallaxY = useSpring(parallaxRaw, { stiffness: 90, damping: 28, restDelta: 0.001 });
+  const scrollOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   // Subtle mouse parallax for ambient lights
   const mouseX = useMotionValue(0);
@@ -72,7 +71,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative min-h-[100dvh] h-[100dvh] w-full bg-transparent text-[#101010] flex flex-col justify-between pt-7 sm:pt-12 lg:pt-20 xl:pt-24 pb-3 sm:pb-5 lg:pb-14 xl:pb-20 px-5 sm:px-10 lg:px-16 overflow-hidden"
+      className="relative min-h-[100dvh] w-full bg-transparent text-[#101010] flex flex-col justify-between pt-16 sm:pt-20 lg:pt-20 xl:pt-24 pb-3 sm:pb-6 lg:pb-14 xl:pb-20 px-6 sm:px-10 lg:px-16 overflow-hidden"
     >
       {/* ─── FONDO ANIMADO SÚPER SUTIL ─── */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
@@ -226,10 +225,10 @@ export function Hero() {
             </div>
           </div>
 
-          {/* 2. Hero Portrait Image (Mobile Order 2 - Parallax al Scroll | Desktop Col 8-12 Rows 1-2) */}
+          {/* 2. Hero Portrait Image (Mobile Order 2 - Desvanecimiento de Opacidad al Scroll | Desktop Col 8-12 Rows 1-2) */}
           <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative flex-1 flex items-center lg:items-end justify-center lg:justify-end self-center lg:self-end h-full w-full my-auto min-h-0 pointer-events-none z-0 lg:z-10">
             <motion.div
-              style={{ y: parallaxY }}
+              style={{ opacity: scrollOpacity }}
               className="relative w-full h-full flex items-center lg:items-end justify-center lg:justify-end"
             >
               <motion.div
