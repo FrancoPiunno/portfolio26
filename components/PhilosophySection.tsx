@@ -104,17 +104,6 @@ export function PhilosophySection() {
 
               {/* Anillos Concéntricos y Ejes Diagonales Guía */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 500 430">
-                <defs>
-                  {/* Filtro Glow para el fotón luminoso */}
-                  <filter id="photonGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3.5" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-
                 {/* Anillos Concéntricos de Precisión */}
                 <circle cx="250" cy="215" r="95" fill="none" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" />
                 <circle cx="250" cy="215" r="140" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="1" />
@@ -123,24 +112,6 @@ export function PhilosophySection() {
                 {/* Ejes Diagonales Guía Punteados (Desde las 4 esquinas al centro) */}
                 <line x1="120" y1="95" x2="380" y2="335" stroke="rgba(250, 138, 97, 0.22)" strokeWidth="1" strokeDasharray="4 6" />
                 <line x1="380" y1="95" x2="120" y2="335" stroke="rgba(250, 138, 97, 0.22)" strokeWidth="1" strokeDasharray="4 6" />
-
-                {/* Fotón de Energía Naranja Orbitando / Viajando sobre la Diagonal */}
-                <motion.circle
-                  r="4.5"
-                  fill="#FA8A61"
-                  filter="url(#photonGlow)"
-                  animate={{
-                    cx: [145, 215, 285, 355, 285, 215, 145],
-                    cy: [310, 250, 180, 120, 180, 250, 310],
-                    opacity: [0.3, 0.9, 0.9, 0.4, 0.9, 0.9, 0.3],
-                    scale: [0.85, 1.2, 1.2, 0.9, 1.2, 1.2, 0.85],
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
               </svg>
 
               {/* 4 CARDS PERIFÉRICAS SIN TRAZO (border-0) CON REFLEJO NARANJA */}
