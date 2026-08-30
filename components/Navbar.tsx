@@ -28,6 +28,7 @@ interface NavbarProps {
 export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
   const [currentTab, setCurrentTab] = useState(activeTab);
   const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
+  const [showDesktopCta, setShowDesktopCta] = useState(false);
   const [isDarkBg, setIsDarkBg] = useState(false);
   const [logoAnimationKey, setLogoAnimationKey] = useState(0);
   const [isMobileContactOpen, setIsMobileContactOpen] = useState(false);
@@ -43,7 +44,7 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
     return () => window.removeEventListener(CONTACT_MODAL_EVENT, handleContactEvent);
   }, []);
 
-  // Repetir la animación del logo cada 5 segundos
+  // Ciclo de animación del logo cada 5 segundos
   useEffect(() => {
     const interval = setInterval(() => {
       setLogoAnimationKey((prev) => prev + 1);
@@ -81,7 +82,8 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
   };
 
   useEffect(() => {
-    let lastScrolled = false;
+    let lastPastHero = false;
+    let lastDesktopCta = false;
     let lastDark = false;
 
     const handleScroll = () => {
@@ -103,11 +105,17 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
         pastHero = window.scrollY > window.innerHeight * 0.65;
       }
 
-      // Si estamos en Contacto, volvemos al modo Hero (sin 'Trabajemos juntos' en navbar)
-      const showNavbarCta = pastHero && !inContact;
-      if (showNavbarCta !== lastScrolled) {
-        lastScrolled = showNavbarCta;
-        setIsScrolledPastHero(showNavbarCta);
+      // Mobile Navbar: Visible desde que pasamos el Hero hasta el final (Contacto y Footer incluidos)
+      if (pastHero !== lastPastHero) {
+        lastPastHero = pastHero;
+        setIsScrolledPastHero(pastHero);
+      }
+
+      // Desktop CTA: Se oculta en Hero y en Contacto
+      const desktopCtaVisible = pastHero && !inContact;
+      if (desktopCtaVisible !== lastDesktopCta) {
+        lastDesktopCta = desktopCtaVisible;
+        setShowDesktopCta(desktopCtaVisible);
       }
 
       // 3. Detectar si entramos en la zona oscura (Filosofía / sobre-mi en adelante)
@@ -242,7 +250,7 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
           <div className="hidden md:flex items-center gap-4 z-20">
             <div
               className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                isScrolledPastHero
+                showDesktopCta
                   ? "opacity-100 scale-100 pointer-events-auto translate-x-0"
                   : "opacity-0 scale-90 pointer-events-none translate-x-4 w-0 overflow-hidden"
               }`}
