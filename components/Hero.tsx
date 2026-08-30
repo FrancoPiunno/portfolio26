@@ -212,7 +212,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* 2. Hero Portrait Image (Mobile Order 2 | Desktop Col 8-12 Rows 1-2) */}
+          {/* 2. Hero Portrait Image (Mobile Order 2 - Agrandado 20% | Desktop Col 8-12 Rows 1-2) */}
           <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative flex-1 flex items-center lg:items-end justify-center lg:justify-end self-center lg:self-end h-full w-full my-auto">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -222,7 +222,7 @@ export function Hero() {
                 delay: 1.35,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
-              className="relative w-[75vw] sm:w-[55vw] lg:w-[38vw] xl:w-[40vw] 2xl:w-[42vw] h-[45vh] sm:h-[50vh] lg:h-[82vh] xl:h-[86vh] 2xl:h-[90vh] -mb-1 sm:-mb-4 lg:-mb-14 xl:-mb-20 pointer-events-none lg:scale-[1.25] xl:scale-[1.28] 2xl:scale-[1.32] origin-bottom lg:origin-bottom-right"
+              className="relative w-[90vw] sm:w-[66vw] lg:w-[38vw] xl:w-[40vw] 2xl:w-[42vw] h-[54vh] sm:h-[60vh] lg:h-[82vh] xl:h-[86vh] 2xl:h-[90vh] -mb-1 sm:-mb-4 lg:-mb-14 xl:-mb-20 pointer-events-none lg:scale-[1.25] xl:scale-[1.28] 2xl:scale-[1.32] origin-bottom lg:origin-bottom-right"
             >
               <Image
                 src="/images/my.png"
