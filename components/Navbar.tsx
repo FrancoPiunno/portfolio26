@@ -44,11 +44,11 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
     return () => window.removeEventListener(CONTACT_MODAL_EVENT, handleContactEvent);
   }, []);
 
-  // Ciclo de animación del logo cada 5 segundos
+  // Ciclo de animación del logo cada 10 segundos
   useEffect(() => {
     const interval = setInterval(() => {
       setLogoAnimationKey((prev) => prev + 1);
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -375,22 +375,33 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
                       <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.4] opacity-80" />
                     </a>
 
-                    {/* Opción Email (Vertical Abajo - Sin fondo, solo texto e icono) */}
-                    <a
-                      href="mailto:piunnofranco@gmail.com?subject=Proyecto%20-%20Trabajemos%20juntos"
-                      onClick={() => setIsMobileContactOpen(false)}
-                      className={`flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-[17px] sm:text-[18px] font-bold active:scale-[0.98] transition-all select-none cursor-pointer ${
-                        isDarkBg
-                          ? "text-white hover:text-white/80"
-                          : "text-[#101010] hover:text-[#101010]/80"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <Mail className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[2]" />
-                        <span>Email</span>
-                      </div>
-                      <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.4] opacity-80" />
-                    </a>
+                    {/* Opción Email (Vertical Abajo - Sin fondo, solo texto e icono + email visible abajo) */}
+                    <div className="flex flex-col">
+                      <a
+                        href="mailto:piunnofranco@gmail.com?subject=Proyecto%20-%20Trabajemos%20juntos"
+                        onClick={() => setIsMobileContactOpen(false)}
+                        className={`flex items-center justify-between w-full px-4 py-2 rounded-xl text-[17px] sm:text-[18px] font-bold active:scale-[0.98] transition-all select-none cursor-pointer ${
+                          isDarkBg
+                            ? "text-white hover:text-white/80"
+                            : "text-[#101010] hover:text-[#101010]/80"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <Mail className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[2]" />
+                          <span>Email</span>
+                        </div>
+                        <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.4] opacity-80" />
+                      </a>
+                      <a
+                        href="mailto:piunnofranco@gmail.com?subject=Proyecto%20-%20Trabajemos%20juntos"
+                        onClick={() => setIsMobileContactOpen(false)}
+                        className={`px-4 text-[12.5px] font-normal -mt-0.5 pb-1 select-none hover:underline ${
+                          isDarkBg ? "text-white/70" : "text-[#101010]/70"
+                        }`}
+                      >
+                        piunnofranco@gmail.com
+                      </a>
+                    </div>
                   </div>
 
                   {/* Botón Circular para Cerrar / Volver */}

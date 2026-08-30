@@ -195,9 +195,9 @@ export default function RootLayout({
         url: baseUrl,
         image: `${baseUrl}/images/hero-franco.jpg`,
         sameAs: [
-          "https://instagram.com",
-          "https://behance.net",
-          "https://linkedin.com",
+          "https://www.instagram.com/franpi1_/",
+          "https://www.behance.net/francopiunno",
+          "https://www.linkedin.com/in/franco-piunno/",
         ],
         knowsAbout: [
           "Diseño UI/UX",

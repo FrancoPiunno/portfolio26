@@ -44,7 +44,7 @@ export function Footer() {
           <div className="space-y-2">
             <div className="flex items-center gap-6 text-[14px] sm:text-[15px] font-normal text-white">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/franpi1_/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#FA8A61] transition-colors"
@@ -52,7 +52,7 @@ export function Footer() {
                 Instagram
               </a>
               <a
-                href="https://behance.net"
+                href="https://www.behance.net/francopiunno"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#FA8A61] transition-colors"
@@ -60,7 +60,7 @@ export function Footer() {
                 Behance
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/franco-piunno/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#FA8A61] transition-colors"
