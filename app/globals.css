@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-neue-berlin), 'Neue Berlin', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-berlin: var(--font-neue-berlin), 'Neue Berlin', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Colores Globales del Proyecto */
+  --color-blanco: #FFFFFF;
+  --color-negro: #101010;
+  --color-naranja: #FA8A61;
+  --color-naranja-hover: #F87747;
+  --color-naranja-subtle: rgba(250, 138, 97, 0.12);
+  --color-naranja-glow: rgba(250, 138, 97, 0.35);
+
+  --color-bg-white: #FFFFFF;
+  --color-text-black: #101010;
+  --color-accent-orange: #FA8A61;
+}
+
+:root {
+  --color-blanco: #FFFFFF;
+  --color-negro: #101010;
+  --color-naranja: #FA8A61;
+  --background: #FFFFFF;
+  --foreground: #101010;
+}
+
+@import "lenis/dist/lenis.css";
+
+html {
+  background-color: #101010;
+  color: var(--foreground);
+  font-family: var(--font-neue-berlin), 'Neue Berlin', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #101010;
+  color: #FFFFFF;
+  font-family: var(--font-neue-berlin), 'Neue Berlin', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Ocultar barra de desplazamiento en todos los navegadores */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Custom Text Selection */
+::selection {
+  background-color: #FA8A61;
+  color: #101010;
+}
+
+/* Lenis Smooth Scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Ocultar barra de desplazamiento */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Efecto Granulado Animado Leve (Film Grain Dinámico) */
+@keyframes grain-animation {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-3%, -5%); }
+  20% { transform: translate(-7%, 3%); }
+  30% { transform: translate(4%, -10%); }
+  40% { transform: translate(-3%, 12%); }
+  50% { transform: translate(-8%, 5%); }
+  60% { transform: translate(7%, 0%); }
+  70% { transform: translate(0%, 8%); }
+  80% { transform: translate(2%, 15%); }
+  90% { transform: translate(-5%, 6%); }
+}
+
+.grain-overlay {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.062;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1.25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  animation: grain-animation 4.5s steps(10) infinite;
+  will-change: transform;
+}
+
+/* Ocultar cursor nativo en dispositivos con puntero de precisión (Desktop) */
+@media (hover: hover) and (pointer: fine) {
+  body, a, button, [role="button"], input, select, textarea, .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
+/* Animación de flujo continuo en líneas SVG */
+@keyframes dash-flow {
+  from {
+    stroke-dashoffset: 40;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ─── Adaptaciones para pantallas con altura reducida y escalado Windows (150% - 200%) ─── */
+@media (max-height: 800px) {
+  #hero {
+    padding-top: clamp(4.25rem, 8vh, 5.5rem) !important;
+    padding-bottom: clamp(1rem, 3vh, 2.5rem) !important;
+  }
+}
+
+@media (max-height: 680px) {
+  #hero {
+    padding-top: 3.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+}
+
