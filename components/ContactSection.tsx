@@ -70,58 +70,155 @@ export function ContactSection() {
           className="absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-gradient-to-r from-purple-600/20 via-pink-500/10 to-transparent blur-[120px] sm:blur-[160px]"
         />
 
-        {/* 4. Elegant SVG Architectural Geometric Circles */}
+        {/* 4. Elegant Animated Flow Lines (Ondas fluidas en movimiento continuo) */}
         <svg
-          className="absolute inset-0 w-full h-full opacity-[0.07] sm:opacity-[0.09]"
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <linearGradient id="contactLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FA8A61" stopOpacity="0.8" />
-              <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.3" />
+            <linearGradient id="flowGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#FA8A61" stopOpacity="0" />
+              <stop offset="25%" stopColor="#FA8A61" stopOpacity="0.45" />
+              <stop offset="55%" stopColor="#FFA47D" stopOpacity="0.75" />
+              <stop offset="80%" stopColor="#FA8A61" stopOpacity="0.4" />
               <stop offset="100%" stopColor="#FA8A61" stopOpacity="0" />
             </linearGradient>
+
+            <linearGradient id="flowGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#FF5520" stopOpacity="0" />
+              <stop offset="35%" stopColor="#FA8A61" stopOpacity="0.35" />
+              <stop offset="65%" stopColor="#FFFFFF" stopOpacity="0.5" />
+              <stop offset="90%" stopColor="#FF5520" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#FA8A61" stopOpacity="0" />
+            </linearGradient>
+
+            <linearGradient id="flowGrad3" x1="100%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stopColor="#FA8A61" stopOpacity="0" />
+              <stop offset="30%" stopColor="#FF7744" stopOpacity="0.25" />
+              <stop offset="70%" stopColor="#FA8A61" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#FA8A61" stopOpacity="0" />
+            </linearGradient>
+
+            <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="4" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
           </defs>
 
-          {/* Anillo concéntrico grande animado */}
-          <motion.circle
-            cx="85%"
-            cy="40%"
-            r="380"
+          {/* Flow Wave Line 1 (Línea principal fluida superior) */}
+          <motion.path
+            d="M -100 320 C 300 180, 650 480, 1100 260 S 1550 420, 1650 350"
             fill="none"
-            stroke="url(#contactLineGrad)"
+            stroke="url(#flowGrad1)"
+            strokeWidth="2.2"
+            filter="url(#glowFilter)"
+            animate={{
+              d: [
+                "M -100 320 C 300 180, 650 480, 1100 260 S 1550 420, 1650 350",
+                "M -100 260 C 340 380, 720 190, 1150 390 S 1520 220, 1650 280",
+                "M -100 380 C 260 220, 600 450, 1080 200 S 1580 380, 1650 340",
+                "M -100 320 C 300 180, 650 480, 1100 260 S 1550 420, 1650 350",
+              ],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+
+          {/* Flow Wave Line 2 (Línea complementaria en contrafase) */}
+          <motion.path
+            d="M -100 450 C 350 580, 750 280, 1150 500 S 1500 320, 1650 440"
+            fill="none"
+            stroke="url(#flowGrad2)"
+            strokeWidth="1.8"
+            filter="url(#glowFilter)"
+            animate={{
+              d: [
+                "M -100 450 C 350 580, 750 280, 1150 500 S 1500 320, 1650 440",
+                "M -100 520 C 290 340, 680 560, 1100 320 S 1560 490, 1650 390",
+                "M -100 390 C 380 520, 800 240, 1200 480 S 1480 290, 1650 460",
+                "M -100 450 C 350 580, 750 280, 1150 500 S 1500 320, 1650 440",
+              ],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
+
+          {/* Flow Wave Line 3 (Línea de corriente con estela punteada continua) */}
+          <motion.path
+            d="M -100 390 C 320 280, 700 420, 1120 310 S 1520 400, 1650 360"
+            fill="none"
+            stroke="url(#flowGrad1)"
+            strokeWidth="1.4"
+            strokeDasharray="10 14"
+            animate={{
+              strokeDashoffset: [0, -180],
+              d: [
+                "M -100 390 C 320 280, 700 420, 1120 310 S 1520 400, 1650 360",
+                "M -100 340 C 360 440, 750 260, 1180 430 S 1490 280, 1650 330",
+                "M -100 420 C 280 310, 660 460, 1090 270 S 1550 430, 1650 380",
+                "M -100 390 C 320 280, 700 420, 1120 310 S 1520 400, 1650 360",
+              ],
+            }}
+            transition={{
+              strokeDashoffset: { duration: 12, repeat: Infinity, ease: "linear" },
+              d: { duration: 20, repeat: Infinity, ease: "easeInOut" },
+            }}
+          />
+
+          {/* Flow Wave Line 4 (Línea profunda inferior de cadencia lenta) */}
+          <motion.path
+            d="M -100 620 C 380 480, 820 690, 1220 520 S 1540 640, 1650 580"
+            fill="none"
+            stroke="url(#flowGrad3)"
+            strokeWidth="1.5"
+            animate={{
+              d: [
+                "M -100 620 C 380 480, 820 690, 1220 520 S 1540 640, 1650 580",
+                "M -100 560 C 440 650, 760 490, 1160 630 S 1500 520, 1650 610",
+                "M -100 660 C 320 520, 860 670, 1250 480 S 1580 660, 1650 550",
+                "M -100 620 C 380 480, 820 690, 1220 520 S 1540 640, 1650 580",
+              ],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
+
+          {/* Flow Wave Line 5 (Línea de corriente fina con pulsación) */}
+          <motion.path
+            d="M -100 220 C 420 350, 800 150, 1200 340 S 1510 190, 1650 250"
+            fill="none"
+            stroke="url(#flowGrad2)"
             strokeWidth="1.2"
-            strokeDasharray="6 12"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 160, repeat: Infinity, ease: "linear" }}
-            style={{ transformOrigin: "85% 40%" }}
-          />
-
-          {/* Anillo secundario */}
-          <motion.circle
-            cx="85%"
-            cy="40%"
-            r="220"
-            fill="none"
-            stroke="url(#contactLineGrad)"
-            strokeWidth="0.8"
-            strokeDasharray="4 8"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 110, repeat: Infinity, ease: "linear" }}
-            style={{ transformOrigin: "85% 40%" }}
-          />
-
-          {/* Línea diagonal técnica sutil */}
-          <motion.line
-            x1="0%"
-            y1="90%"
-            x2="50%"
-            y2="10%"
-            stroke="url(#contactLineGrad)"
-            strokeWidth="0.7"
-            strokeDasharray="5 8"
-            animate={{ strokeDashoffset: [0, 52] }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            strokeDasharray="6 10"
+            animate={{
+              strokeDashoffset: [0, 140],
+              d: [
+                "M -100 220 C 420 350, 800 150, 1200 340 S 1510 190, 1650 250",
+                "M -100 290 C 360 180, 740 370, 1140 220 S 1560 320, 1650 210",
+                "M -100 180 C 460 320, 840 180, 1230 360 S 1480 220, 1650 270",
+                "M -100 220 C 420 350, 800 150, 1200 340 S 1510 190, 1650 250",
+              ],
+            }}
+            transition={{
+              strokeDashoffset: { duration: 14, repeat: Infinity, ease: "linear" },
+              d: { duration: 24, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
+            }}
           />
         </svg>
 
