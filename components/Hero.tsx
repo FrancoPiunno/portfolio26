@@ -206,11 +206,29 @@ export function Hero() {
 
           {/* 1. Mobile: Headline Arriba (100% width) | Desktop: Saludo y Descripción (Col 1-7 Row 1) */}
           <div className="order-1 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-1 self-start space-y-1 sm:space-y-2 w-full max-w-[560px] pt-1 sm:pt-4 lg:pt-1 relative z-20">
-            {/* Solo en Mobile: Headline en la parte superior ocupando el 100% del ancho */}
+            {/* Solo en Mobile: Headline con Animación de Revelación de Texto de Abajo hacia Arriba */}
             <div className="block lg:hidden w-full">
               <h1 className="w-full text-[clamp(2.45rem,9.5vw,3.8rem)] font-normal leading-[0.88] tracking-[-0.04em] text-[#101010]">
-                Arquitecto digital <br />
-                <span className="font-normal">a tus servicios</span>
+                <span className="block overflow-hidden pb-1">
+                  <motion.span
+                    initial={{ y: "115%", opacity: 0, filter: "blur(6px)" }}
+                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                    className="block"
+                  >
+                    Arquitecto digital
+                  </motion.span>
+                </span>
+                <span className="block overflow-hidden">
+                  <motion.span
+                    initial={{ y: "115%", opacity: 0, filter: "blur(6px)" }}
+                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.26 }}
+                    className="block font-normal"
+                  >
+                    a tus servicios
+                  </motion.span>
+                </span>
               </h1>
             </div>
 
@@ -255,11 +273,29 @@ export function Hero() {
 
           {/* 3. Mobile Order 3 (CTAs Vertical Centrado y z-index delante) | Desktop Col 1-7 Row 2 (Headline + CTAs Horizontal) */}
           <div className="order-3 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-2 mt-auto self-end mb-1.5 sm:mb-2 lg:mb-10 xl:mb-14 w-full pt-1 sm:pt-2 relative z-30">
-            {/* Main Headline (Solo en Desktop) */}
+            {/* Main Headline (Solo en Desktop - Animación de Revelación de Texto de Abajo hacia Arriba) */}
             <div className="hidden lg:block mb-4 sm:mb-5 lg:mb-6">
               <h1 className="text-[clamp(2.65rem,5.2vw,5.5rem)] font-normal leading-[0.93] tracking-[-0.035em] text-[#101010]">
-                Arquitecto digital <br />
-                <span className="font-normal">a tus servicios</span>
+                <span className="block overflow-hidden pb-1.5">
+                  <motion.span
+                    initial={{ y: "115%", opacity: 0, filter: "blur(8px)" }}
+                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+                    className="block"
+                  >
+                    Arquitecto digital
+                  </motion.span>
+                </span>
+                <span className="block overflow-hidden pb-0.5">
+                  <motion.span
+                    initial={{ y: "115%", opacity: 0, filter: "blur(8px)" }}
+                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+                    className="block font-normal"
+                  >
+                    a tus servicios
+                  </motion.span>
+                </span>
               </h1>
             </div>
 
