@@ -192,7 +192,7 @@ export function Hero() {
         <div className="flex flex-col justify-between lg:grid lg:grid-cols-12 lg:grid-rows-[auto_1fr] gap-2 sm:gap-6 lg:gap-x-4 flex-1 h-full min-h-0">
 
           {/* 1. Mobile: Headline Arriba (100% width) | Desktop: Saludo y Descripción (Col 1-7 Row 1) */}
-          <div className="order-1 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-1 self-start space-y-1 sm:space-y-2 w-full max-w-[560px] pt-1 sm:pt-4 lg:pt-1">
+          <div className="order-1 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-1 self-start space-y-1 sm:space-y-2 w-full max-w-[560px] pt-1 sm:pt-4 lg:pt-1 relative z-20">
             {/* Solo en Mobile: Headline en la parte superior ocupando el 100% del ancho */}
             <div className="block lg:hidden w-full">
               <h1 className="w-full text-[clamp(2.45rem,9.5vw,3.8rem)] font-normal leading-[0.88] tracking-[-0.04em] text-[#101010]">
@@ -212,11 +212,11 @@ export function Hero() {
             </div>
           </div>
 
-          {/* 2. Hero Portrait Image (Mobile Order 2 - Agrandado Sin Afectar Otros Elementos | Desktop Col 8-12 Rows 1-2) */}
-          <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative flex-1 flex items-center lg:items-end justify-center lg:justify-end self-center lg:self-end h-full w-full my-auto min-h-0 pointer-events-none">
+          {/* 2. Hero Portrait Image (Mobile Order 2 - 100% Opacidad y z-index detrás | Desktop Col 8-12 Rows 1-2) */}
+          <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative flex-1 flex items-center lg:items-end justify-center lg:justify-end self-center lg:self-end h-full w-full my-auto min-h-0 pointer-events-none z-0 lg:z-10">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 0.9, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 1.2,
                 delay: 1.35,
@@ -230,13 +230,13 @@ export function Hero() {
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 55vw"
-                className="object-contain object-center lg:object-bottom select-none mix-blend-luminosity"
+                className="object-contain object-center lg:object-bottom select-none mix-blend-luminosity opacity-100"
               />
             </motion.div>
           </div>
 
-          {/* 3. Mobile Order 3 (CTAs Vertical Centrado y Más Arriba) | Desktop Col 1-7 Row 2 (Headline + CTAs Horizontal) */}
-          <div className="order-3 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-2 mt-auto self-end mb-1.5 sm:mb-2 lg:mb-10 xl:mb-14 w-full pt-1 sm:pt-2">
+          {/* 3. Mobile Order 3 (CTAs Vertical Centrado y z-index delante) | Desktop Col 1-7 Row 2 (Headline + CTAs Horizontal) */}
+          <div className="order-3 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-2 mt-auto self-end mb-1.5 sm:mb-2 lg:mb-10 xl:mb-14 w-full pt-1 sm:pt-2 relative z-30">
             {/* Main Headline (Solo en Desktop) */}
             <div className="hidden lg:block mb-4 sm:mb-5 lg:mb-6">
               <h1 className="text-[clamp(2.65rem,5.2vw,5.5rem)] font-normal leading-[0.93] tracking-[-0.035em] text-[#101010]">
