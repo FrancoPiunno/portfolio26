@@ -212,8 +212,8 @@ export function Hero() {
             </div>
           </div>
 
-          {/* 2. Hero Portrait Image (Mobile Order 2 - Subido y Adaptado | Desktop Col 8-12 Rows 1-2) */}
-          <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative flex-1 flex items-center lg:items-end justify-center lg:justify-end self-center lg:self-end h-full w-full my-auto min-h-0">
+          {/* 2. Hero Portrait Image (Mobile Order 2 - Agrandado Sin Afectar Otros Elementos | Desktop Col 8-12 Rows 1-2) */}
+          <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative flex-1 flex items-center lg:items-end justify-center lg:justify-end self-center lg:self-end h-full w-full my-auto min-h-0 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 0.9, y: 0 }}
@@ -222,7 +222,7 @@ export function Hero() {
                 delay: 1.35,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
-              className="relative w-[92vw] sm:w-[72vw] lg:w-[38vw] xl:w-[40vw] 2xl:w-[42vw] h-[40vh] sm:h-[46vh] lg:h-[82vh] xl:h-[86vh] 2xl:h-[90vh] scale-[1.28] sm:scale-[1.22] origin-center lg:origin-bottom-right lg:scale-[1.25] xl:scale-[1.28] 2xl:scale-[1.32] pointer-events-none -my-1 sm:my-0 lg:-mb-14 xl:-mb-20"
+              className="relative w-[130vw] sm:w-[95vw] lg:w-[38vw] xl:w-[40vw] 2xl:w-[42vw] h-[65vh] sm:h-[72vh] lg:h-[82vh] xl:h-[86vh] 2xl:h-[90vh] scale-[1.40] sm:scale-[1.30] origin-center lg:origin-bottom-right lg:scale-[1.25] xl:scale-[1.28] 2xl:scale-[1.32] pointer-events-none -my-12 sm:-my-8 lg:my-0 lg:-mb-14 xl:-mb-20"
             >
               <Image
                 src="/images/my.png"
