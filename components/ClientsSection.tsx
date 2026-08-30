@@ -622,13 +622,14 @@ export function ClientsSection() {
                   exit={{ opacity: 0, scale: 0.95, y: 20 }}
                   transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   onClick={(e) => e.stopPropagation()}
-                  className={`relative rounded-xs overflow-hidden transition-all duration-300 ${
+                  className={`relative rounded-2xl sm:rounded-xs overflow-hidden transition-all duration-300 ${
                     activeExpandedImage && expandedIndex !== null
                       ? "w-fit max-w-[92vw] max-h-[90vh] bg-transparent flex items-center justify-center"
                       : isMobileListOpen
                       ? "w-full h-[100dvh] max-h-[100dvh] bg-transparent text-white flex flex-col"
-                      : "w-full max-w-6xl max-h-[90vh] min-h-[420px] sm:min-h-[520px] lg:min-h-[580px] bg-[#121212] text-white flex flex-col"
+                      : "w-full max-w-6xl max-h-[90vh] lg:h-[85vh] bg-[#121212] text-white flex flex-col overflow-y-auto lg:overflow-hidden overscroll-contain touch-pan-y"
                   }`}
+                  data-lenis-prevent="true"
                 >
                   <AnimatePresence mode="wait">
                     {/* 1. VISTA MOBILE LISTA VERTICAL DE TODAS LAS IMÁGENES (Fondo transparente + Botón Volver fijo abajo) */}
@@ -773,35 +774,36 @@ export function ClientsSection() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="flex flex-col lg:flex-row w-full h-full flex-1"
+                        data-lenis-prevent="true"
+                        className="flex flex-col lg:flex-row w-full h-full flex-1 overflow-y-auto lg:overflow-hidden overscroll-contain touch-pan-y no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
                       >
                         {/* Botón Cerrar Modal */}
                         <button
                           type="button"
                           onClick={handleCloseModal}
-                          className="absolute top-4 right-4 sm:top-6 sm:right-6 z-40 p-2.5 rounded-full bg-black/70 hover:bg-black/90 text-white/80 hover:text-white transition-all cursor-pointer backdrop-blur-md focus:outline-none"
+                          className="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 z-40 p-2.5 rounded-full bg-black/75 hover:bg-black text-white/90 hover:text-white transition-all cursor-pointer backdrop-blur-md focus:outline-none border border-white/10 shadow-lg"
                           title="Cerrar"
                         >
                           <X className="w-5 h-5 stroke-[2]" />
                         </button>
 
-                        {/* 2. COLUMNA IZQUIERDA: Texto alineado arriba (justify-start) */}
-                        <div className="lg:w-[44%] p-6 sm:p-8 lg:p-12 flex flex-col justify-start overflow-y-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                          <div className="space-y-5 sm:space-y-7">
-                            <h3 className="text-[clamp(2.5rem,4.5vw,4.2rem)] font-bold tracking-tight text-white leading-tight">
+                        {/* 2. COLUMNA IZQUIERDA: Texto responsivo en Y */}
+                        <div className="w-full lg:w-[44%] p-5 sm:p-7 lg:p-12 flex flex-col justify-start shrink-0 lg:overflow-y-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                          <div className="space-y-4 sm:space-y-6">
+                            <h3 className="text-[clamp(1.85rem,5.5vw,4.2rem)] font-bold tracking-tight text-white leading-tight">
                               {modalClient.name}
                             </h3>
-                            <p className="text-[clamp(1.15rem,1.45vw,1.4rem)] text-white/85 font-normal leading-[1.6]">
+                            <p className="text-[clamp(0.95rem,1.25vw,1.35rem)] text-white/85 font-normal leading-[1.5]">
                               {modalClient.description}
                             </p>
 
                             {/* Pills de trabajo realizado */}
                             {modalClient.tags && modalClient.tags.length > 0 && (
-                              <div className="pt-2 sm:pt-4 flex flex-wrap gap-2.5">
+                              <div className="pt-1 sm:pt-3 flex flex-wrap gap-2 sm:gap-2.5">
                                 {modalClient.tags.map((tag, i) => (
                                    <span
                                      key={i}
-                                     className="inline-flex items-center px-4 py-2 rounded-full text-[14px] sm:text-[15px] font-medium bg-white/[0.08] text-white/90 select-none transition-colors hover:bg-white/[0.14] hover:text-white"
+                                     className="inline-flex items-center px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-[12.5px] sm:text-[14px] font-medium bg-white/[0.08] text-white/90 select-none transition-colors hover:bg-white/[0.14] hover:text-white"
                                    >
                                      {tag}
                                    </span>
@@ -812,13 +814,13 @@ export function ClientsSection() {
                         </div>
 
                         {/* ========================================================================= */}
-                        {/* VISTA MOBILE (< lg): SLIDE DE 5 IMÁGENES + BOTÓN CUADRADO NARANJA AMPLIAR  */}
+                        {/* VISTA MOBILE (< lg): SLIDE DE 5 IMÁGENES RESPONSIVO EN Y  */}
                         {/* ========================================================================= */}
-                        <div className="block lg:hidden w-full bg-black">
+                        <div className="block lg:hidden w-full bg-black shrink-0 pb-4">
                           {modalClient.galleryImages.length > 0 && (
                             <div className="flex flex-col w-full">
-                              {/* Slide de 5 imágenes (sin botón flotante) */}
-                              <div className="relative w-full h-[260px] sm:h-[340px] bg-neutral-900 overflow-hidden flex items-center justify-center select-none">
+                              {/* Slide de imágenes adaptado en altura */}
+                              <div className="relative w-full h-[220px] sm:h-[300px] bg-neutral-900 overflow-hidden flex items-center justify-center select-none">
                                 <AnimatePresence mode="wait">
                                   <motion.div
                                     key={`modal-mobile-img-${mobileModalImageIndex}`}
