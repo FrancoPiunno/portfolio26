@@ -225,30 +225,42 @@ export function Hero() {
 
           {/* 1. Mobile: Headline Arriba (100% width) | Desktop: Saludo y Descripción (Col 1-7 Row 1) */}
           <div className="order-1 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-1 self-start space-y-1 sm:space-y-2 w-full max-w-[560px] pt-1 sm:pt-4 lg:pt-1 relative z-20">
-            {/* Solo en Mobile: Headline con Animación de Revelación de Texto de Abajo hacia Arriba */}
+            {/* Solo en Mobile: Headline con Animación de Revelación Palabra por Palabra */}
             <div className="block lg:hidden w-full">
               <h1 className="w-full text-[clamp(2.45rem,9.5vw,3.8rem)] font-normal leading-[0.88] tracking-[-0.04em] text-[#101010]">
                 <span className="block overflow-hidden pb-1">
-                  <motion.span
-                    custom={0}
-                    initial="initial"
-                    animate={mounted ? "animate" : "initial"}
-                    variants={textLineVariants}
-                    className="block will-change-transform"
-                  >
-                    Arquitecto digital
-                  </motion.span>
+                  {["Arquitecto", "digital"].map((word, index) => (
+                    <motion.span
+                      key={`mob-w1-${index}`}
+                      initial={{ opacity: 0, y: 20, filter: "blur(3px)" }}
+                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 20, filter: "blur(3px)" }}
+                      transition={{
+                        duration: 0.36,
+                        delay: 0.15 + index * 0.1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="inline-block mr-[0.26em] last:mr-0 will-change-transform"
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
                 </span>
                 <span className="block overflow-hidden">
-                  <motion.span
-                    custom={1}
-                    initial="initial"
-                    animate={mounted ? "animate" : "initial"}
-                    variants={textLineVariants}
-                    className="block font-normal will-change-transform"
-                  >
-                    a tus servicios
-                  </motion.span>
+                  {["a", "tus", "servicios"].map((word, index) => (
+                    <motion.span
+                      key={`mob-w2-${index}`}
+                      initial={{ opacity: 0, y: 20, filter: "blur(3px)" }}
+                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 20, filter: "blur(3px)" }}
+                      transition={{
+                        duration: 0.36,
+                        delay: 0.35 + index * 0.1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="inline-block mr-[0.26em] last:mr-0 will-change-transform font-normal"
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
                 </span>
               </h1>
             </div>
@@ -294,30 +306,42 @@ export function Hero() {
 
           {/* 3. Mobile Order 3 (CTAs Vertical Centrado y z-index delante) | Desktop Col 1-7 Row 2 (Headline + CTAs Horizontal) */}
           <div className="order-3 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-2 mt-auto self-end mb-1.5 sm:mb-2 lg:mb-10 xl:mb-14 w-full pt-1 sm:pt-2 relative z-30">
-            {/* Main Headline (Solo en Desktop - Animación de Revelación de Texto de Abajo hacia Arriba) */}
+            {/* Main Headline (Solo en Desktop - Animación de Revelación Palabra por Palabra) */}
             <div className="hidden lg:block mb-4 sm:mb-5 lg:mb-6">
               <h1 className="text-[clamp(2.65rem,5.2vw,5.5rem)] font-normal leading-[0.93] tracking-[-0.035em] text-[#101010]">
                 <span className="block overflow-hidden pb-1.5">
-                  <motion.span
-                    custom={0}
-                    initial="initial"
-                    animate={mounted ? "animate" : "initial"}
-                    variants={textLineVariants}
-                    className="block will-change-transform"
-                  >
-                    Arquitecto digital
-                  </motion.span>
+                  {["Arquitecto", "digital"].map((word, index) => (
+                    <motion.span
+                      key={`desk-w1-${index}`}
+                      initial={{ opacity: 0, y: 22, filter: "blur(3px)" }}
+                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 22, filter: "blur(3px)" }}
+                      transition={{
+                        duration: 0.38,
+                        delay: 0.18 + index * 0.1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="inline-block mr-[0.26em] last:mr-0 will-change-transform"
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
                 </span>
                 <span className="block overflow-hidden pb-0.5">
-                  <motion.span
-                    custom={1}
-                    initial="initial"
-                    animate={mounted ? "animate" : "initial"}
-                    variants={textLineVariants}
-                    className="block font-normal will-change-transform"
-                  >
-                    a tus servicios
-                  </motion.span>
+                  {["a", "tus", "servicios"].map((word, index) => (
+                    <motion.span
+                      key={`desk-w2-${index}`}
+                      initial={{ opacity: 0, y: 22, filter: "blur(3px)" }}
+                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 22, filter: "blur(3px)" }}
+                      transition={{
+                        duration: 0.38,
+                        delay: 0.38 + index * 0.1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="inline-block mr-[0.26em] last:mr-0 will-change-transform font-normal"
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
                 </span>
               </h1>
             </div>
