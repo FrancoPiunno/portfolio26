@@ -186,16 +186,16 @@ export function Hero() {
         )}
       </div>
 
-      <div className="max-w-[1380px] mx-auto w-full flex-1 flex flex-col justify-between relative z-10">
+      <div className="max-w-[1380px] mx-auto w-full flex-1 flex flex-col justify-between relative z-10 min-h-0">
 
         {/* Main Grid / Stack: Mobile (1. Headline -> 2. Photo -> 3. CTAs) | Desktop (2 columns) */}
-        <div className="flex flex-col justify-between lg:grid lg:grid-cols-12 lg:grid-rows-[auto_1fr] gap-4 sm:gap-6 lg:gap-x-4 flex-1 h-full min-h-0">
+        <div className="flex flex-col justify-between lg:grid lg:grid-cols-12 lg:grid-rows-[auto_1fr] gap-2 sm:gap-6 lg:gap-x-4 flex-1 h-full min-h-0">
 
           {/* 1. Mobile: Headline Arriba (100% width) | Desktop: Saludo y Descripción (Col 1-7 Row 1) */}
-          <div className="order-1 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-1 self-start space-y-2 w-full max-w-[560px] pt-3 sm:pt-4 lg:pt-1">
+          <div className="order-1 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-1 self-start space-y-1 sm:space-y-2 w-full max-w-[560px] pt-1 sm:pt-4 lg:pt-1">
             {/* Solo en Mobile: Headline en la parte superior ocupando el 100% del ancho */}
             <div className="block lg:hidden w-full">
-              <h1 className="w-full text-[clamp(2.75rem,11vw,4.5rem)] font-normal leading-[0.88] tracking-[-0.04em] text-[#101010]">
+              <h1 className="w-full text-[clamp(2.45rem,9.5vw,3.8rem)] font-normal leading-[0.88] tracking-[-0.04em] text-[#101010]">
                 Arquitecto digital <br />
                 <span className="font-normal">a tus servicios</span>
               </h1>
@@ -212,8 +212,8 @@ export function Hero() {
             </div>
           </div>
 
-          {/* 2. Hero Portrait Image (Mobile Order 2 | Desktop Col 8-12 Rows 1-2) */}
-          <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative flex-1 flex items-center lg:items-end justify-center lg:justify-end self-center lg:self-end h-full w-full my-auto">
+          {/* 2. Hero Portrait Image (Mobile Order 2 - Subido y Adaptado | Desktop Col 8-12 Rows 1-2) */}
+          <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative flex-1 flex items-center lg:items-end justify-center lg:justify-end self-center lg:self-end h-full w-full my-auto min-h-0">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 0.9, y: 0 }}
@@ -222,7 +222,7 @@ export function Hero() {
                 delay: 1.35,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
-              className="relative w-[108vw] sm:w-[78vw] lg:w-[38vw] xl:w-[40vw] 2xl:w-[42vw] h-[64vh] sm:h-[70vh] lg:h-[82vh] xl:h-[86vh] 2xl:h-[90vh] -mb-1 sm:-mb-4 lg:-mb-14 xl:-mb-20 pointer-events-none lg:scale-[1.25] xl:scale-[1.28] 2xl:scale-[1.32] origin-bottom lg:origin-bottom-right"
+              className="relative w-[92vw] sm:w-[72vw] lg:w-[38vw] xl:w-[40vw] 2xl:w-[42vw] h-[40vh] sm:h-[46vh] lg:h-[82vh] xl:h-[86vh] 2xl:h-[90vh] scale-[1.28] sm:scale-[1.22] origin-center lg:origin-bottom-right lg:scale-[1.25] xl:scale-[1.28] 2xl:scale-[1.32] pointer-events-none -my-1 sm:my-0 lg:-mb-14 xl:-mb-20"
             >
               <Image
                 src="/images/my.png"
@@ -235,8 +235,8 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* 3. Mobile Order 3 (CTAs Vertical Centrado) | Desktop Col 1-7 Row 2 (Headline + CTAs Horizontal) */}
-          <div className="order-3 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-2 mt-auto self-end mb-1 sm:mb-2 lg:mb-10 xl:mb-14 w-full pt-2">
+          {/* 3. Mobile Order 3 (CTAs Vertical Centrado y Más Arriba) | Desktop Col 1-7 Row 2 (Headline + CTAs Horizontal) */}
+          <div className="order-3 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-2 mt-auto self-end mb-1.5 sm:mb-2 lg:mb-10 xl:mb-14 w-full pt-1 sm:pt-2">
             {/* Main Headline (Solo en Desktop) */}
             <div className="hidden lg:block mb-4 sm:mb-5 lg:mb-6">
               <h1 className="text-[clamp(2.65rem,5.2vw,5.5rem)] font-normal leading-[0.93] tracking-[-0.035em] text-[#101010]">
@@ -246,12 +246,12 @@ export function Hero() {
             </div>
 
             {/* CTAs: En Mobile en Columna Vertical Centrada | En Desktop en Fila Horizontal */}
-            <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 lg:flex-row lg:items-center lg:justify-start lg:gap-8 pt-1 sm:pt-2 w-full">
+            <div className="flex flex-col items-center justify-center gap-2 sm:gap-3.5 lg:flex-row lg:items-center lg:justify-start lg:gap-8 pt-0.5 sm:pt-2 w-full">
               {/* Primary Orange Pill CTA */}
               <button
                 type="button"
                 onClick={openContactModal}
-                className="group inline-flex items-center justify-center gap-2.5 bg-[#FA8A61] hover:bg-[#F87747] text-[#101010] font-semibold text-[16px] sm:text-[18px] lg:text-[19px] px-8 sm:px-9 py-4 sm:py-4.5 rounded-full transition-all duration-200 shadow-[0_4px_18px_rgba(250,138,97,0.32)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer select-none w-full max-w-[310px] sm:max-w-none sm:w-auto"
+                className="group inline-flex items-center justify-center gap-2.5 bg-[#FA8A61] hover:bg-[#F87747] text-[#101010] font-semibold text-[15.5px] sm:text-[18px] lg:text-[19px] px-7 sm:px-9 py-3.5 sm:py-4.5 rounded-full transition-all duration-200 shadow-[0_4px_18px_rgba(250,138,97,0.32)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer select-none w-full max-w-[290px] sm:max-w-none sm:w-auto"
               >
                 <span>Trabajemos juntos</span>
                 <ArrowUpRight className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[2.2] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -260,7 +260,7 @@ export function Hero() {
               {/* Scroll Trigger */}
               <button
                 onClick={scrollToNextSection}
-                className="group inline-flex items-center justify-center gap-2.5 text-[#101010] text-[14.5px] sm:text-[17px] font-medium hover:opacity-75 transition-all cursor-pointer py-1.5 sm:py-3 select-none"
+                className="group inline-flex items-center justify-center gap-2 text-[#101010] text-[13.5px] sm:text-[17px] font-medium hover:opacity-75 transition-all cursor-pointer py-1 sm:py-3 select-none"
               >
                 <span>Scrollea para ver más</span>
                 <motion.span
@@ -268,12 +268,11 @@ export function Hero() {
                   transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
                   className="inline-block"
                 >
-                  <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2] text-[#101010]" />
+                  <ArrowDown className="w-3.5 h-3.5 sm:w-5 sm:h-5 stroke-[2.2] text-[#101010]" />
                 </motion.span>
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </section>
