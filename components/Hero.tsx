@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
-import type { Variants } from "framer-motion";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -30,24 +29,6 @@ export function Hero() {
   const ambientShiftY = useTransform(springY, [-0.5, 0.5], [-25, 25]);
   const ambientShiftXReverse = useTransform(springX, [-0.5, 0.5], [20, -20]);
   const ambientShiftYReverse = useTransform(springY, [-0.5, 0.5], [20, -20]);
-
-  const textLineVariants: Variants = {
-    initial: {
-      y: 50,
-      opacity: 0,
-      filter: "blur(12px)",
-    },
-    animate: (i: number) => ({
-      y: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      transition: {
-        duration: 1.05,
-        ease: [0.16, 1, 0.3, 1] as const,
-        delay: 0.28 + i * 0.22,
-      },
-    }),
-  };
 
   useEffect(() => {
     setMounted(true);
@@ -225,19 +206,19 @@ export function Hero() {
 
           {/* 1. Mobile: Headline Arriba (100% width) | Desktop: Saludo y Descripción (Col 1-7 Row 1) */}
           <div className="order-1 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-1 self-start space-y-1 sm:space-y-2 w-full max-w-[560px] pt-1 sm:pt-4 lg:pt-1 relative z-20">
-            {/* Solo en Mobile: Headline con Animación de Revelación Palabra por Palabra */}
+            {/* Solo en Mobile: Headline con Animación de Revelación Palabra por Palabra tras la Intro */}
             <div className="block lg:hidden w-full">
               <h1 className="w-full text-[clamp(2.45rem,9.5vw,3.8rem)] font-normal leading-[0.88] tracking-[-0.04em] text-[#101010]">
                 <span className="block overflow-hidden pb-1">
                   {["Arquitecto", "digital"].map((word, index) => (
                     <motion.span
                       key={`mob-w1-${index}`}
-                      initial={{ opacity: 0, y: 20, filter: "blur(3px)" }}
-                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 20, filter: "blur(3px)" }}
+                      initial={{ opacity: 0, y: 26, filter: "blur(5px)" }}
+                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 26, filter: "blur(5px)" }}
                       transition={{
-                        duration: 0.36,
-                        delay: 0.15 + index * 0.1,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.55,
+                        delay: 2.05 + index * 0.13,
+                        ease: [0.16, 1, 0.3, 1],
                       }}
                       className="inline-block mr-[0.26em] last:mr-0 will-change-transform"
                     >
@@ -249,12 +230,12 @@ export function Hero() {
                   {["a", "tus", "servicios"].map((word, index) => (
                     <motion.span
                       key={`mob-w2-${index}`}
-                      initial={{ opacity: 0, y: 20, filter: "blur(3px)" }}
-                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 20, filter: "blur(3px)" }}
+                      initial={{ opacity: 0, y: 26, filter: "blur(5px)" }}
+                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 26, filter: "blur(5px)" }}
                       transition={{
-                        duration: 0.36,
-                        delay: 0.35 + index * 0.1,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.55,
+                        delay: 2.32 + index * 0.12,
+                        ease: [0.16, 1, 0.3, 1],
                       }}
                       className="inline-block mr-[0.26em] last:mr-0 will-change-transform font-normal"
                     >
@@ -306,19 +287,19 @@ export function Hero() {
 
           {/* 3. Mobile Order 3 (CTAs Vertical Centrado y z-index delante) | Desktop Col 1-7 Row 2 (Headline + CTAs Horizontal) */}
           <div className="order-3 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-2 mt-auto self-end mb-1.5 sm:mb-2 lg:mb-10 xl:mb-14 w-full pt-1 sm:pt-2 relative z-30">
-            {/* Main Headline (Solo en Desktop - Animación de Revelación Palabra por Palabra) */}
+            {/* Main Headline (Solo en Desktop - Animación de Revelación Palabra por Palabra tras la Intro) */}
             <div className="hidden lg:block mb-4 sm:mb-5 lg:mb-6">
               <h1 className="text-[clamp(2.65rem,5.2vw,5.5rem)] font-normal leading-[0.93] tracking-[-0.035em] text-[#101010]">
                 <span className="block overflow-hidden pb-1.5">
                   {["Arquitecto", "digital"].map((word, index) => (
                     <motion.span
                       key={`desk-w1-${index}`}
-                      initial={{ opacity: 0, y: 22, filter: "blur(3px)" }}
-                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 22, filter: "blur(3px)" }}
+                      initial={{ opacity: 0, y: 26, filter: "blur(5px)" }}
+                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 26, filter: "blur(5px)" }}
                       transition={{
-                        duration: 0.38,
-                        delay: 0.18 + index * 0.1,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.58,
+                        delay: 2.05 + index * 0.13,
+                        ease: [0.16, 1, 0.3, 1],
                       }}
                       className="inline-block mr-[0.26em] last:mr-0 will-change-transform"
                     >
@@ -330,12 +311,12 @@ export function Hero() {
                   {["a", "tus", "servicios"].map((word, index) => (
                     <motion.span
                       key={`desk-w2-${index}`}
-                      initial={{ opacity: 0, y: 22, filter: "blur(3px)" }}
-                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 22, filter: "blur(3px)" }}
+                      initial={{ opacity: 0, y: 26, filter: "blur(5px)" }}
+                      animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 26, filter: "blur(5px)" }}
                       transition={{
-                        duration: 0.38,
-                        delay: 0.38 + index * 0.1,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.58,
+                        delay: 2.32 + index * 0.12,
+                        ease: [0.16, 1, 0.3, 1],
                       }}
                       className="inline-block mr-[0.26em] last:mr-0 will-change-transform font-normal"
                     >
