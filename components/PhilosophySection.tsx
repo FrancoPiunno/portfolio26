@@ -93,138 +93,174 @@ export function PhilosophySection() {
             </div>
           </div>
 
-          {/* Right Column: Matriz de Convergencia Minimalista y Moderna */}
+          {/* Right Column: Esquema Arquitecto Digital con Reflejo Naranja y Sin Trazo */}
           <div className="lg:col-span-6 flex items-center justify-center lg:justify-end">
             <div
-              className="relative w-full max-w-[480px] bg-white/[0.015] border border-white/[0.08] rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.36)] select-none overflow-hidden"
+              className="relative w-full max-w-[500px] h-[380px] sm:h-[430px] flex items-center justify-center select-none"
               onMouseLeave={() => setHoveredNode(null)}
             >
-              {/* Sutil resplandor ambiental detrás del centro */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#FA8A61]/10 rounded-full blur-3xl pointer-events-none" />
+              {/* Resplandor Cálido Central Trasero */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] rounded-full bg-[#FA8A61]/12 blur-3xl pointer-events-none" />
 
-              {/* Retícula Geométrica y Líneas de Guía Ultra-finas */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40" xmlns="http://www.w3.org/2000/svg">
+              {/* Anillos Concéntricos y Ejes Diagonales Guía */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 500 430">
                 <defs>
-                  <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FA8A61" stopOpacity="0.8" />
-                    <stop offset="50%" stopColor="#FA8A61" stopOpacity="0.2" />
-                    <stop offset="100%" stopColor="#FA8A61" stopOpacity="0" />
-                  </linearGradient>
+                  {/* Filtro Glow para el fotón luminoso */}
+                  <filter id="photonGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="3.5" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
                 </defs>
 
-                {/* Ejes Centrales Cartesianos */}
-                <line x1="50%" y1="12%" x2="50%" y2="88%" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="4 4" />
-                <line x1="12%" y1="50%" x2="88%" y2="50%" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="4 4" />
+                {/* Anillos Concéntricos de Precisión */}
+                <circle cx="250" cy="215" r="95" fill="none" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" />
+                <circle cx="250" cy="215" r="140" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="1" />
+                <circle cx="250" cy="215" r="185" fill="none" stroke="rgba(255, 255, 255, 0.03)" strokeWidth="1" />
 
-                {/* Anillo de precisión minimalista */}
-                <circle cx="50%" cy="50%" r="72" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+                {/* Ejes Diagonales Guía Punteados (Desde las 4 esquinas al centro) */}
+                <line x1="120" y1="95" x2="380" y2="335" stroke="rgba(250, 138, 97, 0.22)" strokeWidth="1" strokeDasharray="4 6" />
+                <line x1="380" y1="95" x2="120" y2="335" stroke="rgba(250, 138, 97, 0.22)" strokeWidth="1" strokeDasharray="4 6" />
+
+                {/* Fotón de Energía Naranja Orbitando / Viajando sobre la Diagonal */}
+                <motion.circle
+                  r="4.5"
+                  fill="#FA8A61"
+                  filter="url(#photonGlow)"
+                  animate={{
+                    cx: [145, 215, 285, 355, 285, 215, 145],
+                    cy: [310, 250, 180, 120, 180, 250, 310],
+                    opacity: [0.3, 0.9, 0.9, 0.4, 0.9, 0.9, 0.3],
+                    scale: [0.85, 1.2, 1.2, 0.9, 1.2, 1.2, 0.85],
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
               </svg>
 
-              {/* Grid de las 4 Disciplinas (2x2) */}
-              <div className="relative z-10 grid grid-cols-2 gap-4 sm:gap-6 min-h-[300px] sm:min-h-[330px]">
-                
-                {/* 1. Producción (Top Left) */}
-                <motion.div
-                  onMouseEnter={() => setHoveredNode("produccion")}
-                  className={`flex flex-col justify-between p-4 sm:p-5 rounded-2xl transition-all duration-300 cursor-pointer border ${
-                    hoveredNode === "produccion"
-                      ? "bg-white/[0.06] border-[#FA8A61]/40 shadow-[0_0_24px_rgba(250,138,97,0.15)] -translate-y-0.5"
-                      : "bg-white/[0.02] border-white/[0.05] hover:border-white/[0.12]"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
-                      <Video className="w-4 h-4 text-[#FA8A61]" strokeWidth={1.5} />
-                    </div>
-                    <span className="text-[11px] font-mono tracking-widest text-white/30">01</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[15px] sm:text-[16px] font-semibold text-white tracking-tight">Producción</h3>
-                    <p className="text-[12px] sm:text-[12.5px] text-white/50 font-normal leading-tight pt-1">Video & Audio</p>
-                  </div>
-                </motion.div>
+              {/* 4 CARDS PERIFÉRICAS SIN TRAZO (border-0) CON REFLEJO NARANJA */}
 
-                {/* 2. Marketing (Top Right) */}
-                <motion.div
-                  onMouseEnter={() => setHoveredNode("marketing")}
-                  className={`flex flex-col justify-between p-4 sm:p-5 rounded-2xl transition-all duration-300 cursor-pointer border ${
-                    hoveredNode === "marketing"
-                      ? "bg-white/[0.06] border-[#FA8A61]/40 shadow-[0_0_24px_rgba(250,138,97,0.15)] -translate-y-0.5"
-                      : "bg-white/[0.02] border-white/[0.05] hover:border-white/[0.12]"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
-                      <TrendingUp className="w-4 h-4 text-[#FA8A61]" strokeWidth={1.5} />
-                    </div>
-                    <span className="text-[11px] font-mono tracking-widest text-white/30">02</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[15px] sm:text-[16px] font-semibold text-white tracking-tight">Marketing</h3>
-                    <p className="text-[12px] sm:text-[12.5px] text-white/50 font-normal leading-tight pt-1">Conversión & Datos</p>
-                  </div>
-                </motion.div>
-
-                {/* 3. Diseño (Bottom Left) */}
-                <motion.div
-                  onMouseEnter={() => setHoveredNode("diseno")}
-                  className={`flex flex-col justify-between p-4 sm:p-5 rounded-2xl transition-all duration-300 cursor-pointer border ${
-                    hoveredNode === "diseno"
-                      ? "bg-white/[0.06] border-[#FA8A61]/40 shadow-[0_0_24px_rgba(250,138,97,0.15)] translate-y-0.5"
-                      : "bg-white/[0.02] border-white/[0.05] hover:border-white/[0.12]"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
-                      <Layers className="w-4 h-4 text-[#FA8A61]" strokeWidth={1.5} />
-                    </div>
-                    <span className="text-[11px] font-mono tracking-widest text-white/30">03</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[15px] sm:text-[16px] font-semibold text-white tracking-tight">Diseño</h3>
-                    <p className="text-[12px] sm:text-[12.5px] text-white/50 font-normal leading-tight pt-1">UI/UX & Sistemas</p>
-                  </div>
-                </motion.div>
-
-                {/* 4. Programación (Bottom Right) */}
-                <motion.div
-                  onMouseEnter={() => setHoveredNode("programacion")}
-                  className={`flex flex-col justify-between p-4 sm:p-5 rounded-2xl transition-all duration-300 cursor-pointer border ${
-                    hoveredNode === "programacion"
-                      ? "bg-white/[0.06] border-[#FA8A61]/40 shadow-[0_0_24px_rgba(250,138,97,0.15)] translate-y-0.5"
-                      : "bg-white/[0.02] border-white/[0.05] hover:border-white/[0.12]"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
-                      <Code2 className="w-4 h-4 text-[#FA8A61]" strokeWidth={1.5} />
-                    </div>
-                    <span className="text-[11px] font-mono tracking-widest text-white/30">04</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[15px] sm:text-[16px] font-semibold text-white tracking-tight">Programación</h3>
-                    <p className="text-[12px] sm:text-[12.5px] text-white/50 font-normal leading-tight pt-1">Full-Stack & Escala</p>
-                  </div>
-                </motion.div>
-
+              {/* 1. Producción (Top-Left) */}
+              <div
+                onMouseEnter={() => setHoveredNode("produccion")}
+                className="absolute top-4 left-2 sm:top-6 sm:left-4 z-20"
+              >
+                <div className="relative overflow-hidden flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl bg-[#151515]/95 shadow-[0_4px_24px_rgba(0,0,0,0.45)] cursor-pointer select-none transition-transform duration-300 hover:scale-105 active:scale-98">
+                  {/* Reflejo Naranja Animado */}
+                  <motion.div
+                    initial={{ x: "-120%" }}
+                    animate={{ x: "240%" }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 3,
+                      delay: 0,
+                      ease: [0.16, 1, 0.3, 1],
+                      repeatDelay: 2.2,
+                    }}
+                    className="absolute inset-0 w-3/5 h-full bg-gradient-to-r from-transparent via-[#FA8A61]/35 to-transparent -skew-x-12 pointer-events-none"
+                  />
+                  <Video className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FA8A61] shrink-0" strokeWidth={1.6} />
+                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">Producción</span>
+                </div>
               </div>
 
-              {/* NÚCLEO CENTRAL MINIMALISTA (Badge Flotante de Integración) */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
-                <motion.div
-                  onMouseEnter={() => setHoveredNode("center")}
-                  className={`px-4 sm:px-5 py-2.5 rounded-full backdrop-blur-2xl border transition-all duration-300 cursor-pointer flex items-center gap-2.5 shadow-2xl ${
-                    hoveredNode === "center"
-                      ? "bg-[#141414] border-[#FA8A61] scale-105 shadow-[0_0_28px_rgba(250,138,97,0.3)]"
-                      : "bg-[#101010]/95 border-white/15 hover:border-white/30"
-                  }`}
-                >
-                  <span className="w-2 h-2 rounded-full bg-[#FA8A61] animate-pulse" />
-                  <span className="text-[13px] sm:text-[14px] font-bold text-white tracking-tight">
-                    Arquitecto <span className="italic font-bold text-white">digital</span>
-                  </span>
-                </motion.div>
+              {/* 2. Marketing (Top-Right) */}
+              <div
+                onMouseEnter={() => setHoveredNode("marketing")}
+                className="absolute top-4 right-2 sm:top-6 sm:right-4 z-20"
+              >
+                <div className="relative overflow-hidden flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl bg-[#151515]/95 shadow-[0_4px_24px_rgba(0,0,0,0.45)] cursor-pointer select-none transition-transform duration-300 hover:scale-105 active:scale-98">
+                  {/* Reflejo Naranja Animado */}
+                  <motion.div
+                    initial={{ x: "-120%" }}
+                    animate={{ x: "240%" }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 3,
+                      delay: 0.8,
+                      ease: [0.16, 1, 0.3, 1],
+                      repeatDelay: 2.2,
+                    }}
+                    className="absolute inset-0 w-3/5 h-full bg-gradient-to-r from-transparent via-[#FA8A61]/35 to-transparent -skew-x-12 pointer-events-none"
+                  />
+                  <TrendingUp className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FA8A61] shrink-0" strokeWidth={1.6} />
+                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">Marketing</span>
+                </div>
               </div>
+
+              {/* 3. Diseño (Bottom-Left) */}
+              <div
+                onMouseEnter={() => setHoveredNode("diseno")}
+                className="absolute bottom-4 left-2 sm:bottom-6 sm:left-4 z-20"
+              >
+                <div className="relative overflow-hidden flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl bg-[#151515]/95 shadow-[0_4px_24px_rgba(0,0,0,0.45)] cursor-pointer select-none transition-transform duration-300 hover:scale-105 active:scale-98">
+                  {/* Reflejo Naranja Animado */}
+                  <motion.div
+                    initial={{ x: "-120%" }}
+                    animate={{ x: "240%" }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 3,
+                      delay: 1.6,
+                      ease: [0.16, 1, 0.3, 1],
+                      repeatDelay: 2.2,
+                    }}
+                    className="absolute inset-0 w-3/5 h-full bg-gradient-to-r from-transparent via-[#FA8A61]/35 to-transparent -skew-x-12 pointer-events-none"
+                  />
+                  <Layers className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FA8A61] shrink-0" strokeWidth={1.6} />
+                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">Diseño</span>
+                </div>
+              </div>
+
+              {/* 4. Programación (Bottom-Right) */}
+              <div
+                onMouseEnter={() => setHoveredNode("programacion")}
+                className="absolute bottom-4 right-2 sm:bottom-6 sm:right-4 z-20"
+              >
+                <div className="relative overflow-hidden flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl bg-[#151515]/95 shadow-[0_4px_24px_rgba(0,0,0,0.45)] cursor-pointer select-none transition-transform duration-300 hover:scale-105 active:scale-98">
+                  {/* Reflejo Naranja Animado */}
+                  <motion.div
+                    initial={{ x: "-120%" }}
+                    animate={{ x: "240%" }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 3,
+                      delay: 2.4,
+                      ease: [0.16, 1, 0.3, 1],
+                      repeatDelay: 2.2,
+                    }}
+                    className="absolute inset-0 w-3/5 h-full bg-gradient-to-r from-transparent via-[#FA8A61]/35 to-transparent -skew-x-12 pointer-events-none"
+                  />
+                  <Code2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FA8A61] shrink-0" strokeWidth={1.6} />
+                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">Programación</span>
+                </div>
+              </div>
+
+              {/* NÚCLEO CENTRAL CIRCULAR NEGRO */}
+              <motion.div
+                animate={{
+                  boxShadow: [
+                    "0 0 28px rgba(250,138,97,0.12)",
+                    "0 0 45px rgba(250,138,97,0.24)",
+                    "0 0 28px rgba(250,138,97,0.12)",
+                  ],
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                onMouseEnter={() => setHoveredNode("center")}
+                className="relative z-20 w-[150px] h-[150px] sm:w-[175px] sm:h-[175px] rounded-full bg-[#111111] transition-transform duration-300 cursor-pointer select-none flex flex-col items-center justify-center text-center p-3 shadow-2xl hover:scale-105"
+              >
+                <div className="text-[17px] sm:text-[20px] font-bold text-white tracking-tight leading-tight">
+                  Arquitecto
+                </div>
+                <div className="text-[17px] sm:text-[20px] font-bold text-white tracking-tight leading-tight italic">
+                  digital
+                </div>
+              </motion.div>
 
             </div>
           </div>
