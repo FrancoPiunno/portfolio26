@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -29,6 +30,24 @@ export function Hero() {
   const ambientShiftY = useTransform(springY, [-0.5, 0.5], [-25, 25]);
   const ambientShiftXReverse = useTransform(springX, [-0.5, 0.5], [20, -20]);
   const ambientShiftYReverse = useTransform(springY, [-0.5, 0.5], [20, -20]);
+
+  const textLineVariants: Variants = {
+    initial: {
+      y: 50,
+      opacity: 0,
+      filter: "blur(12px)",
+    },
+    animate: (i: number) => ({
+      y: 0,
+      opacity: 1,
+      filter: "blur(0px)",
+      transition: {
+        duration: 1.05,
+        ease: [0.16, 1, 0.3, 1] as const,
+        delay: 0.28 + i * 0.22,
+      },
+    }),
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -211,20 +230,22 @@ export function Hero() {
               <h1 className="w-full text-[clamp(2.45rem,9.5vw,3.8rem)] font-normal leading-[0.88] tracking-[-0.04em] text-[#101010]">
                 <span className="block overflow-hidden pb-1">
                   <motion.span
-                    initial={{ y: "115%", opacity: 0, filter: "blur(6px)" }}
-                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                    transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                    className="block"
+                    custom={0}
+                    initial="initial"
+                    animate={mounted ? "animate" : "initial"}
+                    variants={textLineVariants}
+                    className="block will-change-transform"
                   >
                     Arquitecto digital
                   </motion.span>
                 </span>
                 <span className="block overflow-hidden">
                   <motion.span
-                    initial={{ y: "115%", opacity: 0, filter: "blur(6px)" }}
-                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                    transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.26 }}
-                    className="block font-normal"
+                    custom={1}
+                    initial="initial"
+                    animate={mounted ? "animate" : "initial"}
+                    variants={textLineVariants}
+                    className="block font-normal will-change-transform"
                   >
                     a tus servicios
                   </motion.span>
@@ -278,20 +299,22 @@ export function Hero() {
               <h1 className="text-[clamp(2.65rem,5.2vw,5.5rem)] font-normal leading-[0.93] tracking-[-0.035em] text-[#101010]">
                 <span className="block overflow-hidden pb-1.5">
                   <motion.span
-                    initial={{ y: "115%", opacity: 0, filter: "blur(8px)" }}
-                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                    transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-                    className="block"
+                    custom={0}
+                    initial="initial"
+                    animate={mounted ? "animate" : "initial"}
+                    variants={textLineVariants}
+                    className="block will-change-transform"
                   >
                     Arquitecto digital
                   </motion.span>
                 </span>
                 <span className="block overflow-hidden pb-0.5">
                   <motion.span
-                    initial={{ y: "115%", opacity: 0, filter: "blur(8px)" }}
-                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                    transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
-                    className="block font-normal"
+                    custom={1}
+                    initial="initial"
+                    animate={mounted ? "animate" : "initial"}
+                    variants={textLineVariants}
+                    className="block font-normal will-change-transform"
                   >
                     a tus servicios
                   </motion.span>
