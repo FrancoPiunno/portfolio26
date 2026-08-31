@@ -34,50 +34,6 @@ interface ClientData {
 
 export const clientsData: ClientData[] = [
   {
-    id: "litt",
-    name: "Litt",
-    category: "Branding, Packaging & Dirección de Arte",
-    tags: ["Branding", "Identidad Visual", "Dirección de Arte", "Packaging", "Estrategia"],
-    description:
-      "Diseño integral de identidad de marca, dirección visual y packaging para Litt. Creación de una experiencia estética minimalista y contemporánea, con terminaciones de autor y desarrollo de piezas de alto impacto orientadas a posicionamiento premium.",
-    images: [
-      {
-        src: "/works/Litt/348d87254571553.6a871f93c6c24.webp",
-        alt: "Litt identidad y diseño",
-        widthClass: "w-[300px] sm:w-[360px] lg:w-[420px]",
-        heightClass: "h-[220px] sm:h-[270px] lg:h-[310px]",
-        positionClass: "top-4 right-6 sm:right-12",
-        rotation: "rotate-[3deg]",
-        zIndex: 2,
-      },
-      {
-        src: "/works/Litt/a7305c254571553.6a871f93c718b.webp",
-        alt: "Litt packaging y piezas",
-        widthClass: "w-[220px] sm:w-[270px] lg:w-[310px]",
-        heightClass: "h-[160px] sm:h-[200px] lg:h-[230px]",
-        positionClass: "bottom-6 left-4 sm:left-10",
-        rotation: "-rotate-[3deg]",
-        zIndex: 3,
-      },
-      {
-        src: "/works/Litt/023e44254571553.6a871f93c634f.webp",
-        alt: "Litt experiencia visual",
-        widthClass: "w-[170px] sm:w-[210px] lg:w-[250px]",
-        heightClass: "h-[130px] sm:h-[160px] lg:h-[190px]",
-        positionClass: "bottom-16 right-4 sm:right-8",
-        rotation: "rotate-[5deg]",
-        zIndex: 1,
-      },
-    ],
-    galleryImages: [
-      { src: "/works/Litt/348d87254571553.6a871f93c6c24.webp", alt: "Litt foto 1", heightClass: "h-[280px] sm:h-[320px]" },
-      { src: "/works/Litt/a7305c254571553.6a871f93c718b.webp", alt: "Litt foto 2", heightClass: "h-[260px] sm:h-[300px]" },
-      { src: "/works/Litt/023e44254571553.6a871f93c634f.webp", alt: "Litt foto 3", heightClass: "h-[240px] sm:h-[280px]" },
-      { src: "/works/Litt/3cc10a254571553.6a871f93c5b92.webp", alt: "Litt foto 4", heightClass: "h-[220px] sm:h-[250px]" },
-      { src: "/works/Litt/1b3b00254571553.6a871e48e547a.webp", alt: "Litt foto 5", heightClass: "h-[260px] sm:h-[290px]" },
-    ],
-  },
-  {
     id: "svora",
     name: "Svora",
     category: "Joyería de Lujo & Dirección de Arte",
@@ -295,8 +251,8 @@ export const clientsData: ClientData[] = [
 ];
 
 export function ClientsSection() {
-  const [selectedClientId, setSelectedClientId] = useState<string>("litt");
-  const [mobileOpenClientId, setMobileOpenClientId] = useState<string>("litt");
+  const [selectedClientId, setSelectedClientId] = useState<string>("svora");
+  const [mobileOpenClientId, setMobileOpenClientId] = useState<string>("svora");
   const [mobileAccordionIndices, setMobileAccordionIndices] = useState<Record<string, number>>({});
   const [modalClient, setModalClient] = useState<ClientData | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
