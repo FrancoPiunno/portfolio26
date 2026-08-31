@@ -119,40 +119,34 @@ export function ContactModal() {
               </p>
             </div>
 
-            {/* Opciones de Contacto (WhatsApp y Email) */}
-            <div className="flex flex-col space-y-3.5 pt-2">
+            {/* Opciones de Contacto (WhatsApp y Mail) - Sin Fondo */}
+            <div className="flex flex-col space-y-2 pt-2">
               {/* 1. Opción WhatsApp */}
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
-                className="group flex items-center justify-between p-4.5 sm:p-5 bg-[#25D366] hover:bg-[#20bd5a] text-[#101010] rounded-none border-0 ring-0 outline-none transition-all cursor-pointer shadow-md"
+                className="group flex items-center justify-between py-4 px-2 bg-transparent text-[#25D366] hover:opacity-85 border-b border-white/[0.08] transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-3.5">
-                  <WhatsAppIcon className="w-6 h-6 fill-current" />
-                  <div className="text-left">
-                    <p className="text-[16px] sm:text-[17px] font-bold leading-tight">WhatsApp</p>
-                    <p className="text-[12px] sm:text-[13px] opacity-85 font-medium">Chat directo e instantáneo</p>
-                  </div>
+                  <WhatsAppIcon className="w-6 h-6 fill-[#25D366]" />
+                  <span className="text-[18px] sm:text-[20px] font-semibold leading-tight tracking-tight">WhatsApp</span>
                 </div>
-                <ArrowUpRight className="w-5 h-5 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-5 h-5 stroke-[2.5] text-[#25D366] transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>
 
-              {/* 2. Opción Email */}
+              {/* 2. Opción Mail */}
               <a
                 href={`mailto:${email}?subject=Proyecto%20-%20Trabajemos%20juntos`}
                 onClick={() => setIsOpen(false)}
-                className="group flex items-center justify-between p-4.5 sm:p-5 bg-white/[0.08] hover:bg-white/[0.14] text-white rounded-none border-0 ring-0 outline-none transition-all cursor-pointer"
+                className="group flex items-center justify-between py-4 px-2 bg-transparent text-white hover:text-white/80 border-b border-white/[0.08] transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-3.5">
-                  <Mail className="w-6 h-6 stroke-[1.8]" />
-                  <div className="text-left">
-                    <p className="text-[16px] sm:text-[17px] font-bold leading-tight">Email</p>
-                    <p className="text-[12px] sm:text-[13px] text-white/60 font-normal">{email}</p>
-                  </div>
+                  <Mail className="w-6 h-6 stroke-[2] text-white" />
+                  <span className="text-[18px] sm:text-[20px] font-semibold leading-tight tracking-tight">Mail</span>
                 </div>
-                <ArrowUpRight className="w-5 h-5 stroke-[2.2] text-white/80 group-hover:text-white transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-5 h-5 stroke-[2.2] text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>
             </div>
           </motion.div>
