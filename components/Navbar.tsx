@@ -5,6 +5,8 @@ import { ArrowUpRight, Mail, X } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { openContactModal, CONTACT_MODAL_EVENT } from "./ContactModal";
+import { useLanguage } from "@/context/LanguageContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 function WhatsAppIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
@@ -25,7 +27,8 @@ interface NavbarProps {
   activeTab?: string;
 }
 
-export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
+export function Navbar({ activeTab = "sobre-mi" }: NavbarProps) {
+  const { t } = useLanguage();
   const [currentTab, setCurrentTab] = useState(activeTab);
   const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
   const [showDesktopCta, setShowDesktopCta] = useState(false);
@@ -133,11 +136,11 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
       const sobreMiEl = document.getElementById("sobre-mi");
 
       if (contactoEl && contactoEl.getBoundingClientRect().top <= window.innerHeight * 0.5) {
-        setCurrentTab("Contacto");
+        setCurrentTab("contacto");
       } else if (sobreMiEl && sobreMiEl.getBoundingClientRect().top <= window.innerHeight * 0.5) {
-        setCurrentTab("Sobre mi");
+        setCurrentTab("sobre-mi");
       } else if (trabajoEl && trabajoEl.getBoundingClientRect().top <= window.innerHeight * 0.5) {
-        setCurrentTab("Trabajo");
+        setCurrentTab("trabajo");
       } else {
         setCurrentTab("");
       }
@@ -160,9 +163,9 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
   }, []);
 
   const navItems = [
-    { name: "Trabajo", href: "#trabajo" },
-    { name: "Sobre mi", href: "#sobre-mi" },
-    { name: "Contacto", href: "#contacto" },
+    { id: "trabajo", name: t.navbar.work, href: "#trabajo" },
+    { id: "sobre-mi", name: t.navbar.about, href: "#sobre-mi" },
+    { id: "contacto", name: t.navbar.contact, href: "#contacto" },
   ];
 
   return (
@@ -171,15 +174,19 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
       <header className="fixed top-0 left-0 right-0 z-40 w-full pt-6 sm:pt-8 pb-4 px-6 sm:px-10 lg:px-16 transition-all duration-300 pointer-events-none">
         <div className="max-w-[1380px] mx-auto relative flex items-center justify-between pointer-events-auto">
           
-          {/* Brand Logo con animación escalonada que se repite cada 5s */}
+          {/* Brand Logo: En mobile visible solo en Hero; en desktop siempre visible */}
           <Link
             href="/"
             onClick={(e) => {
               e.preventDefault();
               scrollToHref("/", "");
             }}
-            className={`text-[clamp(1.85rem,2.4vw,2.4rem)] font-black italic tracking-tight select-none transition-colors duration-300 hover:scale-[1.02] z-20 cursor-pointer inline-flex items-baseline overflow-hidden ${
+            className={`text-[clamp(1.85rem,2.4vw,2.4rem)] font-black italic tracking-tight select-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] z-20 cursor-pointer inline-flex items-baseline overflow-hidden ${
               isDarkBg ? "text-white" : "text-[#101010]"
+            } ${
+              isScrolledPastHero
+                ? "opacity-0 pointer-events-none -translate-y-2 md:opacity-100 md:pointer-events-auto md:translate-y-0"
+                : "opacity-100 pointer-events-auto translate-y-0"
             }`}
           >
             {["f", "r", "a", "n", "."].map((char, index) => (
@@ -199,6 +206,17 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
             ))}
           </Link>
 
+          {/* Mobile Language Switcher: a la altura del logo de fran. */}
+          <div
+            className={`md:hidden z-20 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              isScrolledPastHero
+                ? "opacity-0 pointer-events-none -translate-y-2"
+                : "opacity-100 pointer-events-auto translate-y-0"
+            }`}
+          >
+            <LanguageSwitcher />
+          </div>
+
           {/* Desktop Center / Right Nav Menu */}
           <nav
             className={`hidden md:flex items-center p-0 rounded-full overflow-hidden backdrop-blur-md z-20 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -212,14 +230,14 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
             }`}
           >
             {navItems.map((item) => {
-              const isActive = currentTab === item.name;
+              const isActive = currentTab === item.id;
               return (
                 <a
-                  key={item.name}
+                  key={item.id}
                   href={item.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToHref(item.href, item.name);
+                    scrollToHref(item.href, item.id);
                   }}
                   className={`relative px-5 py-2.5 rounded-full text-[14px] sm:text-[15px] whitespace-nowrap transition-colors duration-200 select-none z-10 cursor-pointer ${
                     isActive
@@ -260,7 +278,7 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
                 onClick={openContactModal}
                 className="group inline-flex items-center gap-1.5 bg-[#FA8A61] hover:bg-[#F87747] text-[#101010] font-medium text-[15px] px-5 py-2.5 rounded-full whitespace-nowrap transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer select-none"
               >
-                <span>Trabajemos juntos</span>
+                <span>{t.navbar.cta}</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
             </div>
@@ -298,14 +316,14 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
                     }`}
                   >
                     {navItems.map((item) => {
-                      const isActive = currentTab === item.name;
+                      const isActive = currentTab === item.id;
                       return (
                         <a
-                          key={`mobile-nav-${item.name}`}
+                          key={`mobile-nav-${item.id}`}
                           href={item.href}
                           onClick={(e) => {
                             e.preventDefault();
-                            scrollToHref(item.href, item.name);
+                            scrollToHref(item.href, item.id);
                           }}
                           className={`relative px-3.5 sm:px-5 py-2.5 rounded-full text-[13.5px] sm:text-[15px] whitespace-nowrap shrink-0 transition-colors duration-200 select-none z-10 cursor-pointer ${
                             isActive
@@ -337,7 +355,7 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
                     type="button"
                     onClick={() => setIsMobileContactOpen(true)}
                     className="w-11 h-11 rounded-full bg-[#FA8A61] hover:bg-[#F87747] active:scale-90 text-[#101010] flex items-center justify-center transition-all shadow-[0_4px_18px_rgba(250,138,97,0.38)] cursor-pointer shrink-0 select-none"
-                    aria-label="Trabajemos juntos"
+                    aria-label={t.navbar.cta}
                   >
                     <ArrowUpRight className="w-5 h-5 stroke-[2.4]" />
                   </button>
@@ -352,12 +370,12 @@ export function Navbar({ activeTab = "Sobre mi" }: NavbarProps) {
                   transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                   className="flex items-end gap-2.5 w-[calc(100vw-2.5rem)] max-w-[340px]"
                 >
-                  {/* Contenedor transparente vertical con el mismo estilo del navbar */}
+                  {/* Contenedor transparente vertical con el mismo estilo del navbar sin trazo */}
                   <div
-                    className={`flex-1 flex flex-col gap-2 p-2 rounded-2xl backdrop-blur-xl transition-all duration-500 shadow-2xl ${
+                    className={`flex-1 flex flex-col gap-2 p-2 rounded-2xl backdrop-blur-xl transition-all duration-500 border-0 ${
                       isDarkBg
-                        ? "bg-[#181818]/90 border border-white/15 text-white"
-                        : "bg-white/90 border border-black/10 text-[#101010]"
+                        ? "bg-white/[0.08] text-white"
+                        : "bg-black/[0.04] text-[#101010]"
                     }`}
                   >
                     {/* Opción WhatsApp (Vertical Arriba - Sin fondo, solo texto e icono) */}

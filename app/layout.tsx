@@ -101,6 +101,7 @@ const neueBerlin = localFont({
 
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CustomCursor } from "@/components/CustomCursor";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://francopiunno.com";
 
@@ -285,7 +286,9 @@ export default function RootLayout({
       <body className="subpixel-antialiased relative">
         <CustomCursor />
         <div className="grain-overlay" aria-hidden="true" />
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <LanguageProvider>{children}</LanguageProvider>
+        </SmoothScroll>
       </body>
     </html>
   );

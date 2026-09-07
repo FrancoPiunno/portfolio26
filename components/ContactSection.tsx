@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { openContactModal } from "./ContactModal";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function ContactSection() {
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -195,11 +197,11 @@ export function ContactSection() {
           {/* Headline & Description */}
           <div className="space-y-6 sm:space-y-10">
             <h2 className="text-[clamp(4.75rem,12.5vw,7.2rem)] font-normal leading-[0.88] tracking-[-0.045em] text-white">
-              ¿Tenés un proyecto <br />
-              <span className="font-medium text-white">en mente?</span>
+              {t.contact.headlineLine1} <br />
+              <span className="font-medium text-white">{t.contact.headlineLine2}</span>
             </h2>
             <p className="text-[clamp(1.5rem,2.2vw,2rem)] text-white/85 font-normal leading-[1.35] max-w-[860px] pt-1">
-              Trabajemos juntos para transformar tu idea en una experiencia digital sólida, estética y orientada a resultados reales.
+              {t.contact.description}
             </p>
           </div>
 
@@ -210,7 +212,7 @@ export function ContactSection() {
               onClick={openContactModal}
               className="group inline-flex items-center gap-3.5 bg-[#FA8A61] hover:bg-[#F87747] text-[#101010] font-semibold text-[19px] sm:text-[21px] px-9 py-5 rounded-full transition-all duration-200 shadow-[0_4px_28px_rgba(250,138,97,0.32)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer select-none"
             >
-              <span>Trabajemos juntos</span>
+              <span>{t.contact.cta}</span>
               <ArrowUpRight className="w-6 h-6 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
           </div>

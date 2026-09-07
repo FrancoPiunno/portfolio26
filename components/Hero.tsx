@@ -5,8 +5,11 @@ import { ArrowUpRight, ArrowDown } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { openContactModal } from "./ContactModal";
+import { useLanguage } from "@/context/LanguageContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export function Hero() {
+  const { t, language } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -210,9 +213,9 @@ export function Hero() {
             <div className="block lg:hidden w-full">
               <h1 className="w-full text-[clamp(2.45rem,9.5vw,3.8rem)] font-normal leading-[0.88] tracking-[-0.04em] text-[#101010]">
                 <span className="block overflow-hidden pb-1">
-                  {["Arquitecto", "digital"].map((word, index) => (
+                  {t.hero.headlineLine1.map((word, index) => (
                     <motion.span
-                      key={`mob-w1-${index}`}
+                      key={`${language}-mob-w1-${index}`}
                       initial={{ opacity: 0, y: 26, filter: "blur(5px)" }}
                       animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 26, filter: "blur(5px)" }}
                       transition={{
@@ -227,9 +230,9 @@ export function Hero() {
                   ))}
                 </span>
                 <span className="block overflow-hidden">
-                  {["a", "tus", "servicios"].map((word, index) => (
+                  {t.hero.headlineLine2.map((word, index) => (
                     <motion.span
-                      key={`mob-w2-${index}`}
+                      key={`${language}-mob-w2-${index}`}
                       initial={{ opacity: 0, y: 26, filter: "blur(5px)" }}
                       animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 26, filter: "blur(5px)" }}
                       transition={{
@@ -249,10 +252,10 @@ export function Hero() {
             {/* Solo en Desktop: Saludo y Descripción */}
             <div className="hidden lg:block space-y-2">
               <h2 className="text-[clamp(1.15rem,1.4vw,1.4rem)] font-bold text-[#101010] tracking-tight">
-                Hola soy Franco Piunno.
+                {t.hero.greeting}
               </h2>
               <p className="text-[clamp(1rem,1.18vw,1.18rem)] text-[#101010]/85 leading-[1.48] font-normal">
-                Elimino la fricción de coordinar programadores, diseñadores, editores y marketers centralizando todo el ciclo: código, diseño, video y adquisición bajo una sola visión estratégica.
+                {t.hero.description}
               </p>
             </div>
           </div>
@@ -291,9 +294,9 @@ export function Hero() {
             <div className="hidden lg:block mb-4 sm:mb-5 lg:mb-6">
               <h1 className="text-[clamp(2.65rem,5.2vw,5.5rem)] font-normal leading-[0.93] tracking-[-0.035em] text-[#101010]">
                 <span className="block overflow-hidden pb-1.5">
-                  {["Arquitecto", "digital"].map((word, index) => (
+                  {t.hero.headlineLine1.map((word, index) => (
                     <motion.span
-                      key={`desk-w1-${index}`}
+                      key={`${language}-desk-w1-${index}`}
                       initial={{ opacity: 0, y: 26, filter: "blur(5px)" }}
                       animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 26, filter: "blur(5px)" }}
                       transition={{
@@ -308,9 +311,9 @@ export function Hero() {
                   ))}
                 </span>
                 <span className="block overflow-hidden pb-0.5">
-                  {["a", "tus", "servicios"].map((word, index) => (
+                  {t.hero.headlineLine2.map((word, index) => (
                     <motion.span
-                      key={`desk-w2-${index}`}
+                      key={`${language}-desk-w2-${index}`}
                       initial={{ opacity: 0, y: 26, filter: "blur(5px)" }}
                       animate={mounted ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 26, filter: "blur(5px)" }}
                       transition={{
@@ -335,7 +338,7 @@ export function Hero() {
                 onClick={openContactModal}
                 className="group inline-flex items-center justify-center gap-2.5 bg-[#FA8A61] hover:bg-[#F87747] text-[#101010] font-semibold text-[15.5px] sm:text-[18px] lg:text-[19px] px-7 sm:px-9 py-3.5 sm:py-4.5 rounded-full transition-all duration-200 shadow-[0_4px_18px_rgba(250,138,97,0.32)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer select-none w-full max-w-[290px] sm:max-w-none sm:w-auto"
               >
-                <span>Trabajemos juntos</span>
+                <span>{t.hero.cta}</span>
                 <ArrowUpRight className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[2.2] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
 
@@ -344,7 +347,7 @@ export function Hero() {
                 onClick={scrollToNextSection}
                 className="group inline-flex items-center justify-center gap-2 text-[#101010] text-[13.5px] sm:text-[17px] font-medium hover:opacity-75 transition-all cursor-pointer py-1 sm:py-3 select-none"
               >
-                <span>Scrollea para ver más</span>
+                <span>{t.hero.scroll}</span>
                 <motion.span
                   animate={{ y: [0, 4, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
@@ -355,6 +358,11 @@ export function Hero() {
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Desktop Language Switcher: estilo navbar a la altura de los botones pero del otro lado */}
+        <div className="hidden md:flex items-center absolute bottom-1.5 sm:bottom-2 lg:bottom-10 xl:bottom-14 right-0 z-30 pointer-events-auto h-[54px] sm:h-[58px]">
+          <LanguageSwitcher />
         </div>
       </div>
     </section>

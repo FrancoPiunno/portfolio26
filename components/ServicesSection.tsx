@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ItemData {
   id: string;
@@ -10,81 +11,11 @@ interface ItemData {
   descriptionLines: string[];
 }
 
-const servicesData: ItemData[] = [
-  {
-    id: "marketing",
-    title: "Marketing",
-    descriptionLines: [
-      "Estrategia de crecimiento y optimización de conversión basada en datos, no en intuición.",
-      "Se audita lo que existe, se identifican los puntos donde se pierden clientes, y se ajusta con acceso directo a lo construido.",
-    ],
-  },
-  {
-    id: "diseno",
-    title: "Diseño",
-    descriptionLines: [
-      "Interfaces y sistemas visuales diseñados para vender, no solo para verse prolijos.",
-      "Cada decisión de UI se toma sabiendo cómo se va a construir en código y qué tiene que provocar en quien lo usa.",
-    ],
-  },
-  {
-    id: "produccion",
-    title: "Producción",
-    descriptionLines: [
-      "Video y contenido audiovisual con un objetivo de negocio detrás de cada corte.",
-      "Piezas de producto, campañas o contenido de conversión, sosteniendo el mismo mensaje que ya está construido en la marca.",
-    ],
-  },
-  {
-    id: "programacion",
-    title: "Programación",
-    descriptionLines: [
-      "Software y plataformas construidos para funcionar, no solo para lucir bien en una demo.",
-      "Arquitectura pensada para escalar, código legible por cualquier equipo futuro, e interfaz ya integrada al sistema de diseño de marca.",
-    ],
-  },
-];
-
-const workProcessData: ItemData[] = [
-  {
-    id: "estrategia",
-    title: "Estrategia",
-    number: "01",
-    descriptionLines: [
-      "Diagnóstico del punto de partida y definición del objetivo medible del proyecto.",
-      "Alcance, plazo y precio quedan cerrados por escrito antes de tocar una línea de código.",
-    ],
-  },
-  {
-    id: "direccion",
-    title: "Dirección",
-    number: "02",
-    descriptionLines: [
-      "Arquitectura técnica y sistema visual definidos como una sola decisión, no en paralelo.",
-      "Lo que se diseña ya considera cómo se va a construir — y viceversa.",
-    ],
-  },
-  {
-    id: "ejecucion",
-    title: "Ejecución",
-    number: "03",
-    descriptionLines: [
-      "Desarrollo y diseño avanzan en el mismo sprint, no en handoffs secuenciales.",
-      "Avances reales en checkpoints semanales, con acceso a staging, sin entregas sorpresa al final.",
-    ],
-  },
-  {
-    id: "optimizacion",
-    title: "Optimización",
-    number: "04",
-    descriptionLines: [
-      "El producto sale al mercado y entra en una fase corta de medición antes de escalar.",
-      "Ajustes con datos reales de uso — puente natural hacia un acompañamiento mensual de crecimiento.",
-    ],
-  },
-];
-
 export function ServicesSection() {
+  const { t } = useLanguage();
+  const servicesData = t.services.servicesList;
+  const workProcessData = t.services.processList;
+
   const [activeTab, setActiveTab] = useState<"servicios" | "como-trabajo">("servicios");
   const [activeServiceId, setActiveServiceId] = useState<string>("marketing");
   const [activeProcessId, setActiveProcessId] = useState<string>("estrategia");
@@ -127,7 +58,7 @@ export function ServicesSection() {
                 : "font-light text-white/40 hover:text-white/80"
             }`}
           >
-            Servicios
+            {t.services.servicesTab}
           </button>
           <button
             type="button"
@@ -141,7 +72,7 @@ export function ServicesSection() {
                 : "font-light text-white/40 hover:text-white/80"
             }`}
           >
-            Como trabajo
+            {t.services.processTab}
           </button>
         </div>
 
@@ -158,55 +89,64 @@ export function ServicesSection() {
                   <button
                     type="button"
                     onClick={() => handleItemClick(item.id)}
-                    className="text-left group cursor-pointer w-fit py-0.5 transition-all duration-150"
+                    className="text-left group cursor-pointer w-fit max-w-full py-0.5 transition-all duration-150"
                   >
                     <span
-                      className={`inline-flex items-start text-[clamp(3.4rem,6.8vw,5.8rem)] tracking-[-0.04em] leading-[0.98] select-none transition-all duration-150 ${
+                      className={`inline-flex flex-wrap items-baseline text-[clamp(3.4rem,6.8vw,5.8rem)] tracking-[-0.04em] leading-[0.98] select-none transition-all duration-150 ${
                         isSelected
                           ? "font-bold text-white"
                           : "font-extralight text-white/35 hover:text-white/70"
                       }`}
                     >
-                      <span className="inline-flex overflow-hidden pb-1">
-                        {words.map((word, wIdx) => (
-                          <motion.span
+                      {words.map((word, wIdx) => {
+                        const isLastWord = wIdx === words.length - 1;
+                        return (
+                          <span
                             key={`${activeTab}-${item.id}-w-${wIdx}`}
-                            initial={{ opacity: 0, y: 26, filter: "blur(4px)" }}
-                            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{
-                              duration: 0.48,
-                              delay: 0.08 * itemIdx + wIdx * 0.08,
-                              ease: [0.16, 1, 0.3, 1],
-                            }}
-                            className="inline-block mr-[0.26em] last:mr-0 will-change-transform"
+                            className="inline-flex items-baseline mr-[0.26em] last:mr-0"
                           >
-                            {word}
-                          </motion.span>
-                        ))}
-                      </span>
-                      {activeTab === "como-trabajo" && item.number && (
-                        <span className="overflow-hidden inline-block pb-1">
-                          <motion.span
-                            key={`${activeTab}-${item.id}-num`}
-                            initial={{ opacity: 0, y: 20, filter: "blur(3px)" }}
-                            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{
-                              duration: 0.48,
-                              delay: 0.08 * itemIdx + 0.12,
-                              ease: [0.16, 1, 0.3, 1],
-                            }}
-                            className={`text-[clamp(1.25rem,1.8vw,1.75rem)] font-medium ml-2 sm:ml-3 tracking-[0.08em] translate-y-[0.24em] sm:translate-y-[0.3em] select-none leading-none inline-block transition-colors duration-150 ${
-                              isSelected
-                                ? "text-[#ff6238]"
-                                : "text-white/35 group-hover:text-white/70"
-                            }`}
-                          >
-                            {item.number}
-                          </motion.span>
-                        </span>
-                      )}
+                            <span className="inline-block overflow-hidden pb-1">
+                              <motion.span
+                                initial={{ opacity: 0, y: 26, filter: "blur(4px)" }}
+                                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{
+                                  duration: 0.48,
+                                  delay: 0.08 * itemIdx + wIdx * 0.08,
+                                  ease: [0.16, 1, 0.3, 1],
+                                }}
+                                className="inline-block will-change-transform"
+                              >
+                                {word}
+                              </motion.span>
+                            </span>
+
+                            {/* El número de paso va acoplado a la última palabra para evitar salto de línea huérfano */}
+                            {isLastWord && activeTab === "como-trabajo" && item.number && (
+                              <span className="overflow-hidden inline-block pb-1 ml-2 sm:ml-3 self-baseline">
+                                <motion.span
+                                  key={`${activeTab}-${item.id}-num`}
+                                  initial={{ opacity: 0, y: 20, filter: "blur(3px)" }}
+                                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                  viewport={{ once: true, amount: 0.2 }}
+                                  transition={{
+                                    duration: 0.48,
+                                    delay: 0.08 * itemIdx + 0.12,
+                                    ease: [0.16, 1, 0.3, 1],
+                                  }}
+                                  className={`text-[clamp(1.25rem,1.8vw,1.75rem)] font-medium tracking-[0.08em] select-none leading-none inline-block transition-colors duration-150 ${
+                                    isSelected
+                                      ? "text-[#ff6238]"
+                                      : "text-white/35 group-hover:text-white/70"
+                                  }`}
+                                >
+                                  {item.number}
+                                </motion.span>
+                              </span>
+                            )}
+                          </span>
+                        );
+                      })}
                     </span>
                   </button>
 
@@ -216,10 +156,10 @@ export function ServicesSection() {
                       {isSelected && (
                         <motion.div
                           initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                          animate={{ opacity: 1, height: "auto", marginTop: 12, marginBottom: 16 }}
+                          animate={{ opacity: 1, height: "auto", marginTop: 8, marginBottom: 14 }}
                           exit={{ opacity: 0, height: 0, marginTop: 0, marginBottom: 0 }}
                           transition={{ duration: 0.32, ease: [0.25, 0.1, 0.25, 1] }}
-                          className="space-y-2 pl-3.5 border-l-2 border-[#FA8A61]/70 py-1.5"
+                          className="space-y-2 pl-3.5 border-l-2 border-[#FA8A61]/70 py-1"
                         >
                           {item.descriptionLines.map((line, lIdx) => (
                             <div key={lIdx} className="overflow-hidden">

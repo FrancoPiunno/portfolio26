@@ -2,13 +2,15 @@
 
 import { Globe } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
     <footer
-      className="bg-transparent text-[#FFFFFF] border-t border-white/[0.06] pt-16 sm:pt-20 lg:pt-24 pb-14 sm:pb-16 px-6 sm:px-10 lg:px-16"
+      className="bg-transparent text-[#FFFFFF] border-t border-white/[0.06] pt-16 sm:pt-20 lg:pt-24 pb-32 sm:pb-16 px-6 sm:px-10 lg:px-16"
     >
       <div className="max-w-[1380px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12 lg:gap-16">
 
@@ -18,15 +20,15 @@ export function Footer() {
           <div className="border border-white/25 rounded-md px-5 py-3.5 flex items-center gap-4 w-fit bg-white/[0.02]">
             <Globe className="w-8 h-8 text-white stroke-[1.2]" />
             <div className="text-[12px] sm:text-[13px] font-medium tracking-wider leading-[1.3] text-white uppercase select-none">
-              <p>Argentino</p>
-              <p>Trabajando para</p>
-              <p>El mundo</p>
+              <p>{t.footer.badgeLine1}</p>
+              <p>{t.footer.badgeLine2}</p>
+              <p>{t.footer.badgeLine3}</p>
             </div>
           </div>
 
           {/* Copyright */}
           <p className="text-[13px] sm:text-[14px] text-white/70 font-normal select-none">
-            @{currentYear} Franco Piunno, Todos los derechos reservados.
+            @{currentYear} {t.footer.rights}
           </p>
         </div>
 

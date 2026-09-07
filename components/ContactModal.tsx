@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Mail, X } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export const CONTACT_MODAL_EVENT = "open-contact-modal-event";
 
@@ -29,6 +30,7 @@ export function openContactModal() {
 }
 
 export function ContactModal() {
+  const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -77,7 +79,13 @@ export function ContactModal() {
   if (!mounted) return null;
 
   const email = "piunnofranco@gmail.com";
-  const whatsappUrl = "https://wa.me/5491127964772?text=Hola%20Franco,%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto.";
+  const whatsappMsg =
+    language === "en"
+      ? "Hi Franco, I would like to talk about a project."
+      : "Hola Franco, me gustaría hablar sobre un proyecto.";
+  const whatsappUrl = `https://wa.me/5491127964772?text=${encodeURIComponent(whatsappMsg)}`;
+  const emailSubject =
+    language === "en" ? "Project - Let's work together" : "Proyecto - Trabajemos juntos";
 
   return createPortal(
     <AnimatePresence>
@@ -104,7 +112,7 @@ export function ContactModal() {
               type="button"
               onClick={() => setIsOpen(false)}
               className="absolute top-5 right-5 p-2 text-white/70 hover:text-white bg-white/[0.06] hover:bg-white/[0.12] rounded-none transition-colors cursor-pointer"
-              title="Cerrar"
+              title={t.clients.close}
             >
               <X className="w-5 h-5 stroke-[2]" />
             </button>
@@ -112,10 +120,10 @@ export function ContactModal() {
             {/* Encabezado */}
             <div className="space-y-2 pr-6">
               <h3 className="text-[clamp(2rem,3.8vw,2.75rem)] font-bold tracking-tight text-white leading-tight">
-                Trabajemos juntos
+                {t.modal.title}
               </h3>
               <p className="text-[14px] sm:text-[15.5px] text-white/70 font-normal leading-relaxed">
-                ¿Por qué medio preferís contactarme para hablar de tu proyecto?
+                {t.modal.subtitle}
               </p>
             </div>
 
@@ -138,13 +146,13 @@ export function ContactModal() {
 
               {/* 2. Opción Mail */}
               <a
-                href={`mailto:${email}?subject=Proyecto%20-%20Trabajemos%20juntos`}
+                href={`mailto:${email}?subject=${encodeURIComponent(emailSubject)}`}
                 onClick={() => setIsOpen(false)}
                 className="group flex items-center justify-between py-4 px-2 bg-transparent text-white hover:text-white/80 border-b border-white/[0.08] transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-3.5">
                   <Mail className="w-6 h-6 stroke-[2] text-white" />
-                  <span className="text-[18px] sm:text-[20px] font-semibold leading-tight tracking-tight">Mail</span>
+                  <span className="text-[18px] sm:text-[20px] font-semibold leading-tight tracking-tight">Email</span>
                 </div>
                 <ArrowUpRight className="w-5 h-5 stroke-[2.2] text-white transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>

@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useState, useRef } from "react";
 import { Video, TrendingUp, Layers, Code2 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ScrollWordProps {
   word: string;
@@ -26,6 +27,7 @@ function ScrollWord({ word, range, progress }: ScrollWordProps) {
 }
 
 export function PhilosophySection() {
+  const { t, language } = useLanguage();
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -34,15 +36,8 @@ export function PhilosophySection() {
     offset: ["start 0.8", "center 0.35"],
   });
 
-  const p1Words =
-    "Creo que la mejor tecnología es invisible y que el diseño más memorable es aquel que resuelve problemas de negocio reales.".split(
-      " "
-    );
-
-  const p2Words =
-    "No creo en departamentos aislados ni en transferencias burocráticas de archivos entre cinco agencias distintas.".split(
-      " "
-    );
+  const p1Words = t.philosophy.p1.split(" ");
+  const p2Words = t.philosophy.p2.split(" ");
 
   const totalWords = p1Words.length + p2Words.length;
 
@@ -64,7 +59,7 @@ export function PhilosophySection() {
                   const end = ((i + 1.5) / totalWords) * 0.95;
                   return (
                     <ScrollWord
-                      key={`p1-${i}-${word}`}
+                      key={`${language}-p1-${i}-${word}`}
                       word={word}
                       range={[start, Math.min(end, 1)]}
                       progress={scrollYProgress}
@@ -82,7 +77,7 @@ export function PhilosophySection() {
                   const end = ((idx + 1.5) / totalWords) * 0.95;
                   return (
                     <ScrollWord
-                      key={`p2-${i}-${word}`}
+                      key={`${language}-p2-${i}-${word}`}
                       word={word}
                       range={[start, Math.min(end, 1)]}
                       progress={scrollYProgress}
@@ -136,7 +131,7 @@ export function PhilosophySection() {
                     className="absolute inset-0 w-3/5 h-full bg-gradient-to-r from-transparent via-[#FA8A61]/35 to-transparent -skew-x-12 pointer-events-none"
                   />
                   <Video className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FA8A61] shrink-0" strokeWidth={1.6} />
-                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">Producción</span>
+                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">{t.philosophy.disciplines.production}</span>
                 </div>
               </div>
 
@@ -160,7 +155,7 @@ export function PhilosophySection() {
                     className="absolute inset-0 w-3/5 h-full bg-gradient-to-r from-transparent via-[#FA8A61]/35 to-transparent -skew-x-12 pointer-events-none"
                   />
                   <TrendingUp className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FA8A61] shrink-0" strokeWidth={1.6} />
-                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">Marketing</span>
+                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">{t.philosophy.disciplines.marketing}</span>
                 </div>
               </div>
 
@@ -184,7 +179,7 @@ export function PhilosophySection() {
                     className="absolute inset-0 w-3/5 h-full bg-gradient-to-r from-transparent via-[#FA8A61]/35 to-transparent -skew-x-12 pointer-events-none"
                   />
                   <Layers className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FA8A61] shrink-0" strokeWidth={1.6} />
-                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">Diseño</span>
+                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">{t.philosophy.disciplines.design}</span>
                 </div>
               </div>
 
@@ -208,7 +203,7 @@ export function PhilosophySection() {
                     className="absolute inset-0 w-3/5 h-full bg-gradient-to-r from-transparent via-[#FA8A61]/35 to-transparent -skew-x-12 pointer-events-none"
                   />
                   <Code2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FA8A61] shrink-0" strokeWidth={1.6} />
-                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">Programación</span>
+                  <span className="text-[13.5px] sm:text-[15px] font-medium text-white/90 tracking-tight">{t.philosophy.disciplines.dev}</span>
                 </div>
               </div>
 

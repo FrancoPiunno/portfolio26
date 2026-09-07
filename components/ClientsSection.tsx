@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowLeft, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface FloatingImage {
   src: string;
@@ -22,10 +23,25 @@ interface GalleryImage {
   heightClass: string;
 }
 
-interface ClientData {
+export type WorkCategory = "marketing" | "diseno" | "programacion" | "produccion";
+
+export interface WorkCategoryTab {
+  id: WorkCategory;
+  label: string;
+}
+
+export const WORK_CATEGORIES: WorkCategoryTab[] = [
+  { id: "marketing", label: "Marketing" },
+  { id: "diseno", label: "Diseño" },
+  { id: "programacion", label: "Programación" },
+  { id: "produccion", label: "Producción" },
+];
+
+export interface ClientData {
   id: string;
   name: string;
   category: string;
+  categories: WorkCategory[];
   tags: string[];
   description: string;
   images: FloatingImage[];
@@ -37,6 +53,7 @@ export const clientsData: ClientData[] = [
     id: "svora",
     name: "Svora",
     category: "Joyería de Lujo & Dirección de Arte",
+    categories: ["diseno", "produccion"],
     tags: ["Joyería de Autor", "Dirección Creativa", "Branding de Lujo", "Editorial", "Packaging"],
     description:
       "Dirección de arte, fotografía editorial e identidad visual para Svora Joyería Contemporánea. Creación de un universo estético sobrio y monocromático que realza la materialidad escultórica de las piezas, cajas de presentación premium con acabados mate y contenido publicitario de alta costura para canales digitales.",
@@ -96,6 +113,7 @@ export const clientsData: ClientData[] = [
     id: "circleside",
     name: "Circleside",
     category: "Streetwear & Diseño de Indumentaria",
+    categories: ["diseno", "produccion"],
     tags: ["Moda Urbana", "Gráfica Textil", "Dirección de Arte", "Lookbook Digital", "Branding"],
     description:
       "Desarrollo de identidad visual, gráfica aplicada a prendas y dirección creativa para la marca de indumentaria Circleside. Concepto streetwear vanguardista con tipografía deconstructiva, lookbooks urbanos de alto contraste y diseño de etiquetas, bolsas y complementos para colecciones de edición limitada.",
@@ -155,6 +173,7 @@ export const clientsData: ClientData[] = [
     id: "skoopy",
     name: "Skoopy",
     category: "Heladería Artesanal & Branding Gastronómico",
+    categories: ["marketing", "diseno"],
     tags: ["Packaging Gastronómico", "Identidad Visual", "Retail", "Dirección Creativa", "Social Media"],
     description:
       "Identidad visual, packaging y universo de marca para Skoopy Helados. Diseño de packaging para potes de helado artesanal, paletas cromáticas alegres, iconografía distintiva y aplicaciones retail que conectan con un público joven a través de una experiencia fresca, dulce y memorable.",
@@ -206,6 +225,7 @@ export const clientsData: ClientData[] = [
     id: "black-pepper",
     name: "Black Pepper",
     category: "Gastronomía Gourmet & Campañas de Adquisición",
+    categories: ["marketing", "produccion"],
     tags: ["Gastronomía", "Publicidad Digital", "Fotografía Comercial", "Packaging", "Redes Sociales"],
     description:
       "Estrategia creativa, fotografía comercial de producto e identidad de marca para Black Pepper Gourmet Burgers. Campañas publicitarias enfocadas en apetitosidad extrema, packaging para delivery térmico, piezas promocionales animadas y contenido de alto impacto orientado a conversión directa.",
@@ -248,11 +268,71 @@ export const clientsData: ClientData[] = [
       { src: "/works/BlackPepper/e74641252398061.6a4e6fdb54aa5.webp", alt: "Black Pepper foto 7", heightClass: "h-[280px] sm:h-[320px]" },
     ],
   },
+  {
+    id: "litt",
+    name: "Litt",
+    category: "Plataforma Web & E-commerce",
+    categories: ["programacion", "diseno"],
+    tags: ["E-commerce", "Desarrollo Web", "UI/UX", "Arquitectura Frontend", "Performance"],
+    description:
+      "Diseño y desarrollo integral de plataforma e-commerce moderna para Litt. Arquitectura de software moderna pensada para escalar, catálogo interactivo con filtrado dinámico, pasarela de pagos y experiencia de compra optimizada para conversión en dispositivos móviles.",
+    images: [
+      {
+        src: "/works/Litt/1b3b00254571553.6a871e48e547a.webp",
+        alt: "Litt plataforma e-commerce",
+        widthClass: "w-[320px] sm:w-[380px] lg:w-[440px]",
+        heightClass: "h-[230px] sm:h-[280px] lg:h-[320px]",
+        positionClass: "top-2 right-4 sm:right-10",
+        rotation: "-rotate-[2deg]",
+        zIndex: 2,
+      },
+      {
+        src: "/works/Litt/3cc10a254571553.6a871f93c5b92.webp",
+        alt: "Litt interfaz y experiencia de usuario",
+        widthClass: "w-[220px] sm:w-[270px] lg:w-[310px]",
+        heightClass: "h-[160px] sm:h-[200px] lg:h-[230px]",
+        positionClass: "bottom-8 left-6 sm:left-12",
+        rotation: "rotate-[4deg]",
+        zIndex: 3,
+      },
+      {
+        src: "/works/Litt/023e44254571553.6a871f93c634f.webp",
+        alt: "Litt desarrollo web",
+        widthClass: "w-[170px] sm:w-[210px] lg:w-[250px]",
+        heightClass: "h-[130px] sm:h-[160px] lg:h-[190px]",
+        positionClass: "bottom-14 right-4 sm:right-8",
+        rotation: "rotate-[6deg]",
+        zIndex: 1,
+      },
+    ],
+    galleryImages: [
+      { src: "/works/Litt/1b3b00254571553.6a871e48e547a.webp", alt: "Litt foto 1", heightClass: "h-[300px] sm:h-[340px]" },
+      { src: "/works/Litt/3cc10a254571553.6a871f93c5b92.webp", alt: "Litt foto 2", heightClass: "h-[220px] sm:h-[250px]" },
+      { src: "/works/Litt/023e44254571553.6a871f93c634f.webp", alt: "Litt foto 3", heightClass: "h-[280px] sm:h-[320px]" },
+      { src: "/works/Litt/348d87254571553.6a871f93c6c24.webp", alt: "Litt foto 4", heightClass: "h-[240px] sm:h-[280px]" },
+      { src: "/works/Litt/a7305c254571553.6a871f93c718b.webp", alt: "Litt foto 5", heightClass: "h-[260px] sm:h-[300px]" },
+      { src: "/works/Litt/7561e9254571553.6a871e48e44cd.webp", alt: "Litt foto 6", heightClass: "h-[220px] sm:h-[250px]" },
+    ],
+  },
 ];
 
 export function ClientsSection() {
-  const [selectedClientId, setSelectedClientId] = useState<string>("svora");
-  const [mobileOpenClientId, setMobileOpenClientId] = useState<string>("svora");
+  const { t } = useLanguage();
+  const [activeCategory, setActiveCategory] = useState<WorkCategory>("marketing");
+
+  const categories: WorkCategoryTab[] = [
+    { id: "marketing", label: t.clients.filters.marketing },
+    { id: "diseno", label: t.clients.filters.diseno },
+    { id: "programacion", label: t.clients.filters.programacion },
+    { id: "produccion", label: t.clients.filters.produccion },
+  ];
+
+  const filteredClients = clientsData.filter((client) =>
+    client.categories.includes(activeCategory)
+  );
+
+  const [selectedClientId, setSelectedClientId] = useState<string>("black-pepper");
+  const [mobileOpenClientId, setMobileOpenClientId] = useState<string>("black-pepper");
   const [mobileAccordionIndices, setMobileAccordionIndices] = useState<Record<string, number>>({});
   const [modalClient, setModalClient] = useState<ClientData | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -290,7 +370,20 @@ export function ClientsSection() {
   }, [modalClient]);
 
   const activeClient =
-    clientsData.find((c) => c.id === selectedClientId) || clientsData[0];
+    filteredClients.find((c) => c.id === selectedClientId) ||
+    filteredClients[0] ||
+    clientsData[0];
+
+  const handleCategoryChange = (catId: WorkCategory) => {
+    setActiveCategory(catId);
+    const nextList = clientsData.filter((c) => c.categories.includes(catId));
+    if (nextList.length > 0) {
+      const isAlreadyPresent = nextList.some((c) => c.id === selectedClientId);
+      const nextId = isAlreadyPresent ? selectedClientId : nextList[0].id;
+      setSelectedClientId(nextId);
+      setMobileOpenClientId(nextId);
+    }
+  };
 
   const handleOpenModal = (client: ClientData) => {
     setSelectedClientId(client.id);
@@ -378,132 +471,173 @@ export function ClientsSection() {
     >
       <div className="max-w-[1380px] mx-auto w-full relative z-10">
 
-        {/* Subtitle */}
-        <h2 className="text-[clamp(1.75rem,2.4vw,2.2rem)] text-[#101010] font-normal tracking-tight mb-10 sm:mb-14 lg:mb-16 select-none">
-          Selección de clientes
-        </h2>
+        {/* Top Header Tabs: Marketing | Diseño | Programación | Producción */}
+        <div
+          role="tablist"
+          aria-label="Disciplinas de Trabajos"
+          className="flex items-center gap-6 sm:gap-10 lg:gap-14 mb-8 sm:mb-12 lg:mb-16 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-6 px-6 sm:mx-0 sm:px-0 select-none"
+        >
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => handleCategoryChange(cat.id)}
+                className={`text-[clamp(1.65rem,2.4vw,2.2rem)] tracking-tight transition-colors cursor-pointer select-none whitespace-nowrap shrink-0 ${
+                  isActive
+                    ? "font-bold text-[#101010]"
+                    : "font-light text-[#101010]/35 hover:text-[#101010]/75"
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
 
         {/* 2-Column Grid: Left List (with Mobile FAQ Dropdowns) + Right Floating Images Canvas (Desktop Only) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
 
           {/* Left Column: Interactive Client Names + Mobile FAQ Dropdown (1 imagen limpia) */}
           <div className="lg:col-span-6 flex flex-col space-y-3 sm:space-y-4 lg:space-y-4 z-20">
-            {clientsData.map((client) => {
-              const isDesktopSelected = client.id === activeClient.id;
-              const isMobileSelected = client.id === mobileOpenClientId;
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col space-y-3 sm:space-y-4 lg:space-y-4 w-full"
+              >
+                {filteredClients.length > 0 ? (
+                  filteredClients.map((client) => {
+                    const isDesktopSelected = client.id === activeClient.id;
+                    const isMobileSelected = client.id === mobileOpenClientId;
 
-              return (
-                <div key={client.id} className="flex flex-col w-full">
-                  {/* Fila del Título: Nombre a la izquierda + 'Ver más' alineado exactamente con la base del nombre */}
-                  <div className="flex items-baseline justify-between w-full">
-                    <button
-                      type="button"
-                      onClick={() => handleClientClick(client)}
-                      onMouseEnter={() => setSelectedClientId(client.id)}
-                      aria-label={`Ver proyecto de ${client.name}`}
-                      className="text-left group cursor-pointer py-0.5 transition-all duration-150"
-                    >
-                      <span
-                        className={`block text-[clamp(3.4rem,6.8vw,5.8rem)] tracking-[-0.04em] leading-[0.98] select-none transition-all duration-150 ${
-                          isMobileSelected
-                            ? "font-bold text-[#101010]"
-                            : "font-extralight text-[#101010]/35"
-                        } ${
-                          isDesktopSelected
-                            ? "lg:font-bold lg:text-[#101010]"
-                            : "lg:font-extralight lg:text-[#101010]/35 lg:hover:text-[#101010]/70"
-                        }`}
-                      >
-                        {client.name}
-                      </span>
-                    </button>
+                    return (
+                      <div key={client.id} className="flex flex-col w-full">
+                        {/* Fila del Título: Nombre a la izquierda + 'Ver más' alineado exactamente con la base del nombre */}
+                        <div className="flex items-baseline justify-between w-full">
+                          <button
+                            type="button"
+                            onClick={() => handleClientClick(client)}
+                            onMouseEnter={() => setSelectedClientId(client.id)}
+                            aria-label={`Ver proyecto de ${client.name}`}
+                            className="text-left group cursor-pointer py-0.5 transition-all duration-150"
+                          >
+                            <span
+                              className={`block text-[clamp(3.4rem,6.8vw,5.8rem)] tracking-[-0.04em] leading-[0.98] select-none transition-all duration-150 ${
+                                isMobileSelected
+                                  ? "font-bold text-[#101010]"
+                                  : "font-extralight text-[#101010]/35"
+                              } ${
+                                isDesktopSelected
+                                  ? "lg:font-bold lg:text-[#101010]"
+                                  : "lg:font-extralight lg:text-[#101010]/35 lg:hover:text-[#101010]/70"
+                              }`}
+                            >
+                              {client.name}
+                            </span>
+                          </button>
 
-                    {/* Botón 'Ver más' + Flecha alineado en la base del texto sin animación de hover */}
-                    {isMobileSelected && (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleOpenModal(client);
-                        }}
-                        className="lg:hidden shrink-0 inline-flex items-center gap-1 text-[clamp(1.15rem,3.8vw,1.45rem)] font-medium text-[#101010] cursor-pointer select-none pb-1 sm:pb-2"
-                      >
-                        <span>Ver más</span>
-                        <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2] text-[#101010]" />
-                      </button>
-                    )}
+                          {/* Botón 'Ver más' + Flecha alineado en la base del texto sin animación de hover */}
+                          {isMobileSelected && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleOpenModal(client);
+                              }}
+                              className="lg:hidden shrink-0 inline-flex items-center gap-1 text-[clamp(1.15rem,3.8vw,1.45rem)] font-medium text-[#101010] cursor-pointer select-none pb-1 sm:pb-2"
+                            >
+                              <span>{t.clients.viewMore}</span>
+                              <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2] text-[#101010]" />
+                            </button>
+                          )}
+                        </div>
+
+                        {/* Mobile-Only Accordion Dropdown (1 sola imagen recta, deslizable para navegar fotos) */}
+                        <div className="lg:hidden overflow-hidden">
+                          <AnimatePresence initial={false}>
+                            {isMobileSelected && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                                animate={{ opacity: 1, height: "auto", marginTop: 12, marginBottom: 18 }}
+                                exit={{ opacity: 0, height: 0, marginTop: 0, marginBottom: 0 }}
+                                transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
+                                className="w-full"
+                              >
+                                {(() => {
+                                  const total = client.galleryImages.length || 1;
+                                  const currentIdx = (mobileAccordionIndices[client.id] || 0) % total;
+                                  const currentImg = client.galleryImages[currentIdx] || client.galleryImages[0];
+
+                                  if (!currentImg) return null;
+
+                                  return (
+                                    <div className="relative w-full aspect-[4/3] max-h-[360px] bg-neutral-900 rounded-none overflow-hidden select-none border-0 ring-0 outline-none shadow-none cursor-pointer">
+                                      <AnimatePresence mode="wait">
+                                        <motion.div
+                                          key={`mobile-acc-${client.id}-${currentIdx}`}
+                                          initial={{ opacity: 0 }}
+                                          animate={{ opacity: 1 }}
+                                          exit={{ opacity: 0 }}
+                                          transition={{ duration: 0.2 }}
+                                          onPanEnd={(e, info) => {
+                                            if (info.offset.x < -30) {
+                                              // Deslizar a la izquierda -> Siguiente imagen
+                                              setMobileAccordionIndices((prev) => ({
+                                                ...prev,
+                                                [client.id]: ((prev[client.id] || 0) + 1) % total,
+                                              }));
+                                            } else if (info.offset.x > 30) {
+                                              // Deslizar a la derecha -> Imagen anterior
+                                              setMobileAccordionIndices((prev) => ({
+                                                ...prev,
+                                                [client.id]: ((prev[client.id] || 0) - 1 + total) % total,
+                                              }));
+                                            }
+                                          }}
+                                          onClick={() => handleOpenModal(client)}
+                                          className="relative w-full h-full"
+                                        >
+                                          <Image
+                                            src={currentImg.src}
+                                            alt={currentImg.alt || client.name}
+                                            fill
+                                            sizes="100vw"
+                                            className="object-cover rounded-none border-0 ring-0 outline-none shadow-none rotate-0 select-none"
+                                            priority
+                                          />
+
+                                          {/* Indicador de posición al deslizar (ej: 1 / 7) */}
+                                          {total > 1 && (
+                                            <div className="absolute bottom-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-[11px] font-medium text-white border border-white/20 select-none shadow-md">
+                                              {currentIdx + 1} / {total}
+                                            </div>
+                                          )}
+                                        </motion.div>
+                                      </AnimatePresence>
+                                    </div>
+                                  );
+                                })()}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="py-12 text-[#101010]/40 text-lg font-light select-none">
+                    Próximamente más proyectos en esta disciplina.
                   </div>
-
-                  {/* Mobile-Only Accordion Dropdown (1 sola imagen recta, deslizable para navegar fotos) */}
-                  <div className="lg:hidden overflow-hidden">
-                    <AnimatePresence initial={false}>
-                      {isMobileSelected && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                          animate={{ opacity: 1, height: "auto", marginTop: 12, marginBottom: 18 }}
-                          exit={{ opacity: 0, height: 0, marginTop: 0, marginBottom: 0 }}
-                          transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
-                          className="w-full"
-                        >
-                          {(() => {
-                            const total = client.galleryImages.length || 1;
-                            const currentIdx = (mobileAccordionIndices[client.id] || 0) % total;
-                            const currentImg = client.galleryImages[currentIdx] || client.images[0];
-
-                            return (
-                              <div className="relative w-full h-[240px] sm:h-[300px] bg-neutral-900 rounded-none border-0 ring-0 outline-none shadow-none overflow-hidden cursor-pointer rotate-0 select-none touch-pan-y">
-                                <AnimatePresence mode="wait">
-                                  <motion.div
-                                    key={`acc-img-${client.id}-${currentIdx}`}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.18 }}
-                                    onPanEnd={(e, info) => {
-                                      if (info.offset.x < -30) {
-                                        // Deslizar a la izquierda -> Siguiente imagen
-                                        setMobileAccordionIndices((prev) => ({
-                                          ...prev,
-                                          [client.id]: ((prev[client.id] || 0) + 1) % total,
-                                        }));
-                                      } else if (info.offset.x > 30) {
-                                        // Deslizar a la derecha -> Imagen anterior
-                                        setMobileAccordionIndices((prev) => ({
-                                          ...prev,
-                                          [client.id]: ((prev[client.id] || 0) - 1 + total) % total,
-                                        }));
-                                      }
-                                    }}
-                                    onClick={() => handleOpenModal(client)}
-                                    className="relative w-full h-full"
-                                  >
-                                    <Image
-                                      src={currentImg.src}
-                                      alt={currentImg.alt || client.name}
-                                      fill
-                                      sizes="100vw"
-                                      className="object-cover rounded-none border-0 ring-0 outline-none shadow-none rotate-0 select-none"
-                                      priority
-                                    />
-
-                                    {/* Indicador de posición al deslizar (ej: 1 / 7) */}
-                                    {total > 1 && (
-                                      <div className="absolute bottom-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-[11px] font-medium text-white border border-white/20 select-none shadow-md">
-                                        {currentIdx + 1} / {total}
-                                      </div>
-                                    )}
-                                  </motion.div>
-                                </AnimatePresence>
-                              </div>
-                            );
-                          })()}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </div>
-              );
-            })}
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Right Column: 3 Photos Canvas (Desktop Only >= lg) */}
